@@ -14,9 +14,7 @@ class User (
         id: UUID? = null,
         studentName: String,
         password: String,
-        grade: Int,
-        classNum: Int,
-        num: Int,
+        schoolGcn: String,
         github: String
 ) {
 
@@ -33,16 +31,8 @@ class User (
     var password: String = password
         protected set
 
-    @Column(name = "grade", nullable = false)
-    var grade: Int = grade
-        protected set
-
-    @Column(name = "schoolClass", nullable = false)
-    var classNum: Int = classNum
-        protected set
-
-    @Column(name = "number", nullable = false)
-    var num: Int = num
+    @Column(name = "shoolGcn", columnDefinition = "CHAR(4)", nullable = false)
+    var schoolGcn: String = schoolGcn
         protected set
 
     @Column(name = "github", columnDefinition = "VARCHAR(100)")
