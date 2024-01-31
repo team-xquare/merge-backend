@@ -12,7 +12,7 @@ data class UpdateProfileRequest(
 
     @field:NotNull(message = "null이 될 수 없습니다.")
     @field:Size(min = 4, max = 4, message = "학번은 4자리입니다.")
-    var studentNumber: String?,
+    var schoolGcn: String?,
 
     @field:NotNull(message = "null이 될 수 없습니다.")
     var github: String?
