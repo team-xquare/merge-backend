@@ -1,5 +1,6 @@
 package com.example.mergebackend.domain.user.entity
 
+import com.example.mergebackend.domain.user.presentation.dto.response.UserProfileResponse
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -35,8 +36,15 @@ class User (
     var schoolGcn: String = schoolGcn
         protected set
 
-    @Column(name = "github", columnDefinition = "VARCHAR(100)")
+    @Column(name = "github", columnDefinition = "VARCHAR(100)", nullable = false)
     var github: String = github
         protected set
+
+    fun toResponse() = UserProfileResponse(
+        this.id!!,
+        this.studentName,
+        this.schoolGcn,
+        this.github
+    )
 
 }
