@@ -30,6 +30,9 @@ dependencies {
     //jpa
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
+
+    //DB
+    implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
     runtimeOnly("com.mysql:mysql-connector-j")
 
     //security
@@ -38,6 +41,8 @@ dependencies {
     //validation
     implementation("org.springframework.boot:spring-boot-starter-validation")
 
+    //jwt
+    implementation("io.jsonwebtoken:jjwt:0.9.1")
 
     //jackson
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
