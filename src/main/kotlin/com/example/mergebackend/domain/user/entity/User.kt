@@ -16,7 +16,9 @@ class User (
         studentName: String,
         password: String,
         schoolGcn: String,
-        github: String
+        github: String,
+        accountId: String,
+        email: String
 ) {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,11 +42,21 @@ class User (
     var github: String = github
         protected set
 
+    @Column(name = "accountId", columnDefinition = "VARCHAR(15)", nullable = false)
+    var accountId: String = accountId
+        protected set
+
+    @Column(name = "email", columnDefinition = "VARCHAR(40)", nullable = false)
+    var email: String = email
+        protected set
+
     fun toResponse() = UserProfileResponse(
         this.id!!,
         this.studentName,
         this.schoolGcn,
-        this.github
+        this.github,
+        this.accountId,
+        this.email
     )
 
 }

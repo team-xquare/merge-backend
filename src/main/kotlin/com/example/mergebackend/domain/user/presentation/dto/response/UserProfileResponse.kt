@@ -6,5 +6,7 @@ data class UserProfileResponse (
     val id: UUID,
     val studentName: String,
     val schoolGcn: String,
-    val github: String
+    val github: String,
+    val accountId: String,
+    val email: String
 )
