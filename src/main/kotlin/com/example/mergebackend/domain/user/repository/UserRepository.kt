@@ -7,8 +7,7 @@ import java.util.*
 
 @Repository
 interface UserRepository: JpaRepository<User, UUID?> {
-
-    fun findBySchoolGcn(schoolGcn: String): User?
-
+    
     fun existsBySchoolGcn(schoolGcn: String): Boolean
+    fun findByAccountId(accountId: String): User?
 }

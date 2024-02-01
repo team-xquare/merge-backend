@@ -10,6 +10,6 @@ import org.springframework.stereotype.Component
 class UserFacade(
     private val userRepository: UserRepository
 ) {
-    fun getCurrentUser(): User = userRepository.findBySchoolGcn(SecurityContextHolder.getContext().authentication.name)
+    fun getCurrentUser(): User = userRepository.findByAccountId(SecurityContextHolder.getContext().authentication.name)
                 ?: throw InvalidTokenException
 }
