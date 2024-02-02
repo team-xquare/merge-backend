@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 import org.springframework.web.cors.CorsUtils
 import java.util.Base64
 import kotlin.jvm.Throws
@@ -28,27 +29,21 @@ class SecurityConfig(
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http.csrf()
-            .disable()
-            .cors()
             .and()
-            .formLogin()
-            .disable()
+            .formLogin().disable()
             .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
-        http.authorizeRequests()
-            .requestMatchers(CorsUtils::isCorsRequest)
-            .permitAll()
-            .antMatchers(HttpMethod.POST, "/auth")
-            .permitAll()
-            .antMatchers(HttpMethod.POST, "/auth/login")
-            .permitAll()
-            .anyRequest()
-            .authenticated()
-
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+            .authorizeRequests()
+            .requestMatchers(CorsUtils::isCorsRequest).permitAll()
+            .antMatchers(HttpMethod.POST, "/**/auth").permitAll()
+            .antMatchers(HttpMethod.POST, "/auth").permitAll()
+            .antMatchers(HttpMethod.POST, "/**/login").permitAll()
+            .anyRequest().authenticated()
             .and()
-
+            .cors().and()
+            .headers().frameOptions().sameOrigin().and()
             .apply(FilterConfig(tokenProvider, tokenResolver, exceptionHandlerFilter))
+            .and().build()
 
         return http.build()
     }
