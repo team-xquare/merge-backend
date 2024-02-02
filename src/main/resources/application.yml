@@ -20,3 +20,7 @@ jwt:
 server:
   servlet:
     context-path: /merge
+
+logging:
+  level:
+    root: info
