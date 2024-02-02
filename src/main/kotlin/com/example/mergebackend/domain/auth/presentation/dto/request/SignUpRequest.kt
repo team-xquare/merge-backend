@@ -20,8 +20,8 @@ data class SignUpRequest(
 
     @field:NotBlank(message = "null이 될 수 없습니다.")
     @field:Pattern(
-            regexp = "^[a-zA-z]{4,}\\d{4,}[!@#%&()*~]",
-            message = "비밀번호는 영문 대소문자 4자 이상, 숫자 4자 이상, 특수문자 1자 이상이며 총 15자 이하여야 합니다."
+            regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#\$%^&*()_+\\-=\\[\\]{};':\\\\|,.<>\\/?]).{8,15}\$",
+            message = "8자 이상 15자 이하이며, 최소 하나의 숫자, 특수문자, 영문자를 포함해야 합니다."
     )
     val password: String?,
 
