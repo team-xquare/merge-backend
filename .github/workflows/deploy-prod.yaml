@@ -14,10 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Java
-        uses: actions/setup-java@v2
+      - name: setup jdk
+        uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: 17
+          distribution: 'temurin'
 
       - name: Build Gradle
         uses: gradle/gradle-build-action@v2
@@ -39,4 +40,4 @@ jobs:
             DB_PASSWORD=${{ secrets.DB_PASSWORD }}
             JWT_SECRET=${{ secrets.JWT_SECRET }}
             ACCESS_EXP=${{ secrets.ACCESS_EXP }}
-            REFRESH_EXP=${{ secrets.REFRESH_EXP }} 
+            REFRESH_EXP=${{ secrets.REFRESH_EXP }}
