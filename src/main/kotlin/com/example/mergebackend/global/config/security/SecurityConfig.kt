@@ -25,16 +25,14 @@ class SecurityConfig(
 
     @Bean
     protected fun filterChain(http: HttpSecurity): SecurityFilterChain {
-        http.csrf()
-            .and()
+        http.csrf().disable()
             .formLogin().disable()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests()
             .requestMatchers(CorsUtils::isCorsRequest).permitAll()
-            .antMatchers(HttpMethod.POST, "/**/auth").permitAll()
             .antMatchers(HttpMethod.POST, "/auth").permitAll()
-            .antMatchers(HttpMethod.POST, "/**/login").permitAll()
+            .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
             .anyRequest().authenticated()
             .and()
             .cors().and()
