@@ -1,13 +1,9 @@
 package com.example.mergebackend.domain.user.entity
 
 import com.example.mergebackend.domain.user.presentation.dto.response.UserProfileResponse
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
 import org.hibernate.annotations.DynamicUpdate
 import java.util.*
+import javax.persistence.*
 
 @Entity(name = "user")
 @DynamicUpdate
@@ -21,7 +17,8 @@ class User (
         email: String
 ) {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", columnDefinition = "BINARY(16")
     var id: UUID? = id
         protected set
