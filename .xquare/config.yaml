@@ -2,6 +2,4 @@ config:
   name: merge-backend
   service_type: be
   port: 8080
-  domain:
-    prod: merge-backend.xquare.app
-    stag: merge-backend-stag.xquare.app
+  prefix: "/merge"
