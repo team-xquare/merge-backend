@@ -10,14 +10,11 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 import org.springframework.web.cors.CorsUtils
-import java.util.Base64
-import kotlin.jvm.Throws
+import java.util.*
 
 @Configuration
 class SecurityConfig(
@@ -27,7 +24,7 @@ class SecurityConfig(
 ) {
 
     @Bean
-    fun filterChain(http: HttpSecurity): SecurityFilterChain {
+    protected fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http.csrf()
             .and()
             .formLogin().disable()
@@ -43,7 +40,6 @@ class SecurityConfig(
             .cors().and()
             .headers().frameOptions().sameOrigin().and()
             .apply(FilterConfig(tokenProvider, tokenResolver, exceptionHandlerFilter))
-            .and().build()
 
         return http.build()
     }
