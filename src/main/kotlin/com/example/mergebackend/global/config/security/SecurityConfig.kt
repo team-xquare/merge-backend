@@ -14,11 +14,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.web.cors.CorsUtils
 import java.util.Base64
 import kotlin.jvm.Throws
 
 @Configuration
-@EnableWebSecurity
 class SecurityConfig(
         private val tokenProvider: TokenProvider,
         private val exceptionHandlerFilter: ExceptionHandlerFilter,
@@ -26,27 +26,31 @@ class SecurityConfig(
 ) {
 
     @Bean
-    @Throws(Exception::class)
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
-        return http
-                .csrf().disable()
-                .formLogin().disable()
-                .cors()
+        http.csrf()
+            .disable()
+            .cors()
+            .and()
+            .formLogin()
+            .disable()
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        http.authorizeRequests()
+            .requestMatchers(CorsUtils::isCorsRequest)
+            .permitAll()
+            .antMatchers(HttpMethod.POST, "/auth")
+            .permitAll()
+            .antMatchers(HttpMethod.POST, "/auth/login")
+            .permitAll()
+            .anyRequest()
+            .authenticated()
 
-                .and()
-                .authorizeRequests()
+            .and()
 
-                .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/auth").permitAll()
-                .anyRequest().authenticated()
-                .and()
+            .apply(FilterConfig(tokenProvider, tokenResolver, exceptionHandlerFilter))
 
-                .apply(FilterConfig(tokenProvider, tokenResolver, exceptionHandlerFilter))
-                .and().build()
+        return http.build()
     }
 
     @Bean
