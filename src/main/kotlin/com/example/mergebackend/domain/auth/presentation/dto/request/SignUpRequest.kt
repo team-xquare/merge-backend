@@ -27,6 +27,10 @@ data class SignUpRequest(
 
     @field:NotNull(message = "null이 될 수 없습니다.")
     @field:Size(min = 4, max = 4, message = "학번은 4자리입니다.")
+    @field:Pattern(
+            regexp = "^[123].*",
+            message = "학번의 1~3으로 시작해야 합니다."
+    )
     var schoolGcn: String?,
 
     @field:NotNull(message = "null이 될 수 없습니다.")
