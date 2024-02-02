@@ -20,14 +20,13 @@ jobs:
           java-version: 17
           distribution: 'temurin'
 
-      - name: Build Gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: |
-            build
-            --build-cache
-            --no-daemon
+      - name: chmod
+        run: chmod +x gradlew
 
+      - name: Build gradle
+        run: ./gradlew build -x test
+            
+          
       - name: Deploy to xquare
         uses: team-xquare/xquare-deployment-action@master
         with:
