@@ -38,7 +38,6 @@ class SecurityConfig(
             .cors().and()
             .headers().frameOptions().sameOrigin().and()
             .apply(FilterConfig(tokenProvider, tokenResolver, exceptionHandlerFilter))
-
         return http.build()
     }
 
