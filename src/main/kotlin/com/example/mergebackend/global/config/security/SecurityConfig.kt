@@ -4,6 +4,8 @@ import com.example.mergebackend.global.config.error.handler.ExceptionHandlerFilt
 import com.example.mergebackend.global.config.filter.FilterConfig
 import com.example.mergebackend.global.config.jwt.JwtTokenResolver
 import com.example.mergebackend.global.config.jwt.TokenProvider
+import mu.KLogger
+import mu.KotlinLogging
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -52,4 +54,7 @@ class SecurityConfig(
 
     @Bean
     fun bankEncoder(): Base64.Encoder = Base64.getEncoder()
+
+    @Bean
+    fun logger(): KLogger = KotlinLogging.logger {}
 }

@@ -56,6 +56,9 @@ dependencies {
     //test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
+
+    // logging
+    implementation("io.github.microutils:kotlin-logging-jvm:2.0.10")
 }
 
 tasks.withType<KotlinCompile> {
