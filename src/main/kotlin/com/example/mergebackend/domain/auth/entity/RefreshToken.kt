@@ -11,5 +11,5 @@ data class RefreshToken(
     var token: String,
 
     @Indexed
-    var schoolGcn: String,
+    var accountId: String,
 )
