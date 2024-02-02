@@ -1,5 +1,5 @@
 config:
-  name: merge
+  name: merge-backend
   service_type: be
   port: 8080
   prefix: "/merge"
