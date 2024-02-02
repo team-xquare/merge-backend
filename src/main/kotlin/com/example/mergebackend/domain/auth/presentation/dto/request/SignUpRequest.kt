@@ -1,6 +1,9 @@
 package com.example.mergebackend.domain.auth.presentation.dto.request
 
-import jakarta.validation.constraints.*
+import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
+import javax.validation.constraints.Pattern
+import javax.validation.constraints.Size
 
 data class SignUpRequest(
 
