@@ -1,6 +1,6 @@
 package com.example.mergebackend.domain.auth.service
 
-import com.example.mergebackend.domain.auth.exception.PasswordMismatchedException
+import com.example.mergebackend.domain.auth.exception.PasswordNotMatchedException
 import com.example.mergebackend.domain.auth.presentation.dto.request.LoginRequest
 import com.example.mergebackend.domain.auth.presentation.dto.request.ReissueRequest
 import com.example.mergebackend.domain.auth.presentation.dto.request.SignUpRequest
@@ -26,7 +26,7 @@ class AuthServiceImpl(
         val user = userRepository.findByAccountId(req.accountId!!)
                 ?: throw UserNotFoundException
 
-        if (!passwordEncoder.matches(req.password, user.password)) throw PasswordMismatchedException
+        if (!passwordEncoder.matches(req.password, user.password)) throw PasswordNotMatchedException
 
         return tokenProvider.receiveToken(user.accountId)
     }
