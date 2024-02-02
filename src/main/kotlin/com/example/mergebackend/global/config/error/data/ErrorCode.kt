@@ -10,6 +10,8 @@ enum class ErrorCode(
     //400
     PASSWORD_NOT_MATCHED(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
     SCHOOL_GCN_NOT_EXIST(HttpStatus.BAD_REQUEST, "존재하지 않는 학번입니다."),
+    IMAGE_UPLOAD_FAILED(HttpStatus.BAD_REQUEST, "이미지 업로드에 실패하였습니다."),
+    WRONG_IMAGE(HttpStatus.BAD_REQUEST, "잘못된 이미지 형식입니다."),
 
     // 401
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "유효하지 않은 토큰입니다."),
