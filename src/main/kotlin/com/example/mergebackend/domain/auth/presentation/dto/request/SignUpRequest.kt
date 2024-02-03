@@ -8,14 +8,15 @@ import javax.validation.constraints.Size
 data class SignUpRequest(
     @field:NotBlank(message = "null이 될 수 없습니다.")
     @field:Size(min = 2, max = 4, message = "이름은 2자 ~ 4자입니다.")
-    val studentName: String,
+    val studentName: String?,
 
-    @field:NotBlank(message = "null이 될 없습니다.")
-//    @field:Pattern(
-//            regexp = "^(http|https)://github.com",
-//            message = "올바른 github 주소 형식이 아닙니다."
-//    )
-    val github: String?,
+    @field:NotBlank(message = "null이 될 수 없습니다.")
+    @field:Pattern(
+            regexp = "^https://github\\.com/[A-z0-9_-]+(/)?([A-z0-9_-]+(/)?)?$",
+            message = "올바른 Github 주소 형식이 아닙니다."
+    )
+    val githubUrl: String?,
+
 
     @field:NotBlank(message = "null이 될 수 없습니다.")
     @field:Pattern(
@@ -30,16 +31,16 @@ data class SignUpRequest(
             regexp = "^[123].*",
             message = "학번의 1~3으로 시작해야 합니다."
     )
-    var schoolGcn: String?,
+    val schoolGcn: String?,
 
     @field:NotNull(message = "null이 될 수 없습니다.")
     @field:Pattern(
             regexp = ".*@dsm.hs.kr.*",
             message = "올바른 이메일 형식이 아닙니다."
     )
-    var email: String?,
+    val email: String?,
 
     @field:NotNull(message = "null이 될 수 없습니다.")
     @field:Size(min = 5, max = 15, message = "아이디는 최소 5자, 최대 15자 입니다.")
-    var accountId: String?
+    val accountId: String?
 )
