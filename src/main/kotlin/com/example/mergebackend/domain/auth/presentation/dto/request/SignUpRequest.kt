@@ -15,7 +15,7 @@ data class SignUpRequest(
             regexp = "^https://github\\.com/[A-z0-9_-]+(/)?([A-z0-9_-]+(/)?)?$",
             message = "올바른 Github 주소 형식이 아닙니다."
     )
-    val githubUrl: String?,
+    val github: String?,
 
 
     @field:NotBlank(message = "null이 될 수 없습니다.")
