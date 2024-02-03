@@ -10,13 +10,14 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
-import org.springframework.web.cors.CorsUtils
 import java.util.*
 
 @Configuration
+@EnableWebSecurity
 class SecurityConfig(
         private val tokenProvider: TokenProvider,
         private val exceptionHandlerFilter: ExceptionHandlerFilter,
@@ -24,21 +25,29 @@ class SecurityConfig(
 ) {
 
     @Bean
-    protected fun filterChain(http: HttpSecurity): SecurityFilterChain {
-        http.csrf().disable()
-            .formLogin().disable()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-            .authorizeRequests()
-            .requestMatchers(CorsUtils::isCorsRequest).permitAll()
-            .antMatchers(HttpMethod.POST, "/auth").permitAll()
-            .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
-            .anyRequest().authenticated()
-            .and()
-            .cors().and()
-            .headers().frameOptions().sameOrigin().and()
-            .apply(FilterConfig(tokenProvider, tokenResolver, exceptionHandlerFilter))
-        return http.build()
+    @Throws(Exception::class)
+    fun filterChain(http: HttpSecurity): SecurityFilterChain {
+        return http
+                .csrf().disable()
+                .formLogin().disable()
+                .cors()
+
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
+                .and()
+                .authorizeRequests()
+
+                .antMatchers(HttpMethod.POST, "/auth/sms").permitAll()
+                .antMatchers(HttpMethod.GET, "/auth/sms/check").permitAll()
+                .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/auth").permitAll()
+                .anyRequest().authenticated()
+                .and()
+
+                .apply(FilterConfig(tokenProvider, tokenResolver, exceptionHandlerFilter))
+                .and().build()
     }
 
     @Bean
