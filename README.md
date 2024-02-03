@@ -1,2 +1,2 @@
 # merge-backend
-Team merge backend repository
+Project merge backend repository
