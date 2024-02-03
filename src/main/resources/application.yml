@@ -6,9 +6,6 @@ spring:
     url: ${DB_URL}
   jackson:
     property-naming-strategy: SNAKE_CASE
-  jpa:
-    hibernate:
-      ddl-auto: ${DDL_AUTO:none}
     properties:
       hibernate:
         show_sql: true
