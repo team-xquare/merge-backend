@@ -35,7 +35,7 @@ class AuthServiceImpl(
     override fun signup(request: SignUpRequest) {
 
         userRepository.save(User(
-                studentName = request.studentName!!,
+                studentName = request.studentName,
                 accountId = request.accountId!!,
                 password = passwordEncoder.encode(request.password!!),
                 schoolGcn = request.schoolGcn!!,

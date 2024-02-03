@@ -23,7 +23,7 @@ class User (
     var id: UUID? = id
         protected set
 
-    @Column(name = "studentName", columnDefinition = "CHAR(4)", nullable = false)
+    @Column(name = "studentName", columnDefinition = "CHAR(4)")
     var studentName: String = studentName
         protected set
 
