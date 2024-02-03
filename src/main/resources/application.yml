@@ -4,6 +4,10 @@ spring:
     username: ${DB_USER}
     password: ${DB_PASSWORD}
     url: ${DB_URL}
+  redis:
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
+    database: 1
   jackson:
     property-naming-strategy: SNAKE_CASE
     properties:
