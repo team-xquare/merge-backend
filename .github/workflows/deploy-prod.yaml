@@ -40,3 +40,5 @@ jobs:
             JWT_SECRET=${{ secrets.JWT_SECRET }}
             ACCESS_EXP=${{ secrets.ACCESS_EXP }}
             REFRESH_EXP=${{ secrets.REFRESH_EXP }}
+            REDIS_HOST=${{ secrets.REDIS_HOST }}
+            REDIS_PORT=${{ secrets.REDIS.PORT }}
