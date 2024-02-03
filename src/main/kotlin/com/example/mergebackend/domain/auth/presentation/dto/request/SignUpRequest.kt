@@ -11,10 +11,10 @@ data class SignUpRequest(
     val studentName: String,
 
     @field:NotBlank(message = "null이 될 없습니다.")
-    @field:Pattern(
-            regexp = "^(http|https)://github.com",
-            message = "올바른 github 주소 형식이 아닙니다."
-    )
+//    @field:Pattern(
+//            regexp = "^(http|https)://github.com",
+//            message = "올바른 github 주소 형식이 아닙니다."
+//    )
     val github: String?,
 
     @field:NotBlank(message = "null이 될 수 없습니다.")
