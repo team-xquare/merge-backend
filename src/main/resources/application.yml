@@ -9,6 +9,9 @@ spring:
     properties:
       hibernate:
         show_sql: true
+  jpa:
+    hibernate:
+      ddl-auto: update
 jwt:
   secret-key: ${JWT_SECRET}
   access-exp: ${ACCESS_EXP}
