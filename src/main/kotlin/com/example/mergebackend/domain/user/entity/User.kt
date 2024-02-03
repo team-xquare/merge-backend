@@ -19,7 +19,7 @@ class User (
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", columnDefinition = "BINARY(16")
+    @Column(name = "id", columnDefinition = "BINARY(16)")
     var id: UUID? = id
         protected set
 
@@ -31,7 +31,7 @@ class User (
     var password: String = password
         protected set
 
-    @Column(name = "shoolGcn", columnDefinition = "CHAR(4)", nullable = false)
+    @Column(name = "schoolGcn", columnDefinition = "CHAR(4)", nullable = false)
     var schoolGcn: String = schoolGcn
         protected set
 
