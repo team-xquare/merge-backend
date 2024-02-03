@@ -29,7 +29,9 @@ class AuthController(
     fun signup(
             @RequestBody @Valid
             request: SignUpRequest
-    ): TokenResponse = authService.signup(request)
+    ) {
+        authService.signup(request)
+    }
 
     @PostMapping("/reissue")
     @ResponseStatus(HttpStatus.CREATED)

@@ -32,21 +32,16 @@ class AuthServiceImpl(
     }
 
     @Transactional
-    override fun signup(request: SignUpRequest): TokenResponse {
-
-        userRepository.findBySchoolGcn(request.schoolGcn!!)?.let {
-            return tokenProvider.receiveToken(request.schoolGcn)
-        }
+    override fun signup(request: SignUpRequest) {
 
         userRepository.save(User(
                 studentName = request.studentName!!,
                 accountId = request.accountId!!,
                 password = passwordEncoder.encode(request.password!!),
-                schoolGcn = request.schoolGcn,
+                schoolGcn = request.schoolGcn!!,
                 email = request.email!!,
                 github = request.github!!
         ))
-        return tokenProvider.receiveToken(request.schoolGcn)
     }
 
     @Transactional
