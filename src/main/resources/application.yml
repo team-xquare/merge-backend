@@ -7,7 +7,6 @@ spring:
   redis:
     host: ${REDIS_HOST}
     port: ${REDIS_PORT}
-    database: 1
   jackson:
     property-naming-strategy: SNAKE_CASE
     properties:
@@ -20,11 +19,17 @@ jwt:
   secret-key: ${JWT_SECRET}
   access-exp: ${ACCESS_EXP}
   refresh-exp: ${REFRESH_EXP}
-
 server:
   servlet:
     context-path: /merge
-
 logging:
   level:
     root: info
+cloud:
+  aws:
+    s3:
+      bucket: ${BUCKET}
+      dir: ${DIRECTORY}
+      accessKey: ${ACCESS_KEY}
+      secretKey: ${SECRET_KEY}
+      region: ap-northeast-2

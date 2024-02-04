@@ -59,6 +59,10 @@ dependencies {
 
     // logging
     implementation("io.github.microutils:kotlin-logging-jvm:2.0.10")
+
+    //aws
+    implementation("com.amazonaws:aws-java-sdk-s3:1.12.232")
+
 }
 
 tasks.withType<KotlinCompile> {
