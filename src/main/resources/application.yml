@@ -5,7 +5,7 @@ spring:
     password: ${DB_PASSWORD}
     url: ${DB_URL}
   redis:
-    host: ${REDIS_HOST:localhost}
+    host: ${REDIS_HOST:redis.xquare.app}
     port: ${REDIS_PORT:6379}
   jackson:
     property-naming-strategy: SNAKE_CASE
