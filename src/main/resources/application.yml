@@ -14,7 +14,20 @@ spring:
         show_sql: true
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: ${DDL_AUTO:update}
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USER}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+            timeout: 5000
 jwt:
   secret-key: ${JWT_SECRET}
   access-exp: ${ACCESS_EXP}
