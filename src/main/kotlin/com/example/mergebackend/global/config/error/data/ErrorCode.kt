@@ -29,5 +29,6 @@ enum class ErrorCode(
 
     // 500
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부 에러"),
-    S3_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "AWS S3가 정상 작동하지 않습니다.")
+    S3_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "AWS S3가 정상 작동하지 않습니다."),
+    VAULT_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Vault 서버 에러")
 }

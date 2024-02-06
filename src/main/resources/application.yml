@@ -12,6 +12,8 @@ spring:
     properties:
       hibernate:
         show_sql: true
+    deserialization:
+      accept-empty-string-as-null-object: true
   jpa:
     hibernate:
       ddl-auto: ${DDL_AUTO:update}
@@ -46,3 +48,7 @@ cloud:
       accessKey: ${ACCESS_KEY}
       secretKey: ${SECRET_KEY}
       region: ap-northeast-2
+
+vault:
+  address: ${VAULT_URL}
+  vaultToken: ${VAULT_TOKEN}
