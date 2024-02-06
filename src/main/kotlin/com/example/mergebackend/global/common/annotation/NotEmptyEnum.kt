@@ -1,6 +1,5 @@
 package com.example.mergebackend.global.common.annotation
 
-import java.lang.annotation.ElementType
 import javax.validation.Constraint
 import javax.validation.ConstraintValidator
 import javax.validation.ConstraintValidatorContext
