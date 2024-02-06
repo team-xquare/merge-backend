@@ -66,6 +66,9 @@ dependencies {
     //mail
     implementation("org.springframework.boot:spring-boot-starter-mail")
 
+    // vault
+    implementation("com.bettercloud:vault-java-driver:5.1.0")
+
 }
 
 tasks.withType<KotlinCompile> {

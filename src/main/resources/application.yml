@@ -46,3 +46,7 @@ cloud:
       accessKey: ${ACCESS_KEY}
       secretKey: ${SECRET_KEY}
       region: ap-northeast-2
+
+vault:
+  address: ${VAULT_URL}
+  vaultToken: ${VAULT_TOKEN}
