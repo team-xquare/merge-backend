@@ -16,14 +16,14 @@ private class EnvironmentVariableServiceImpl(
         environmentVariableRepository.save(
             req.run {
                 EnvironmentVariable(
-                    projectName = projectName,
-                    envType = envType,
-                    serviceType = serviceType,
-                    variableList = variableList
+                    projectName = projectName!!,
+                    envType = envType!!,
+                    serviceType = serviceType!!,
+                    variableList = variableList!!
                 )
             }
         )
-        val path = req.run { "${projectName.lowercase()}-${serviceType.toString().lowercase()}-${envType.toString().lowercase()}" }
-        vaultUtil.addSecret(req.variableList, path)
+        val path = req.run { "${projectName!!.lowercase()}-${serviceType.toString().lowercase()}-${envType.toString().lowercase()}" }
+        vaultUtil.addSecret(req.variableList!!, path)
     }
 }

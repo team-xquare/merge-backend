@@ -12,6 +12,8 @@ spring:
     properties:
       hibernate:
         show_sql: true
+    deserialization:
+      accept-empty-string-as-null-object: true
   jpa:
     hibernate:
       ddl-auto: ${DDL_AUTO:update}
