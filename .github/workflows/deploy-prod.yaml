@@ -41,4 +41,12 @@ jobs:
             ACCESS_EXP=${{ secrets.ACCESS_EXP }}
             REFRESH_EXP=${{ secrets.REFRESH_EXP }}
             REDIS_HOST=${{ secrets.REDIS_HOST }}
-            REDIS_PORT=${{ secrets.REDIS.PORT }}
+            REDIS_PORT=${{ secrets.REDIS_PORT }}
+            MAIL_USER=${{ secrets.MAIL_USER }}
+            MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD }}
+            BUCKET=${{ secrets.BUCKET }}
+            DIRECTORY=${{ secrets.DIRECTORY }}
+            ACCESS_KEY=${{ secrets.ACCESS_KEYT }}
+            SECRET_KEY=${{ secrets.SECRET_KEY }}
+            VAULT_URL=${{ secrets.VAULT_URL }}
+            VAULT_TOKEN=${{ secrets.VAULT_TOKEN }}
