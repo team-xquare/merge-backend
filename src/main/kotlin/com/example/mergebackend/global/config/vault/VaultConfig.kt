@@ -17,6 +17,7 @@ class VaultConfig(
             .address(vaultProperty.address)
             .token(vaultProperty.vaultToken)
             .sslConfig(SslConfig().verify(false).build())
+            .engineVersion(1)
             .build()
     )
 }

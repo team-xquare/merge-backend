@@ -17,7 +17,7 @@ private class VaultUtilImpl(
     override fun addSecret(secrets: Map<String, String>, path: String) {
         val response = vault.logical().write("${XQUARE_PATH}/$path", secrets)
         if(response.restResponse.status != 200) {
-            println(response.restResponse.body)
+            println(response.restResponse.status)
             throw VaultException
         }
     }
