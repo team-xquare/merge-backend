@@ -30,6 +30,12 @@ spring:
             enable: true
             required: true
             timeout: 5000
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 0B
+      max-file-size: 100MB
+      max-request-size: 100MB
 jwt:
   secret-key: ${JWT_SECRET}
   access-exp: ${ACCESS_EXP}
