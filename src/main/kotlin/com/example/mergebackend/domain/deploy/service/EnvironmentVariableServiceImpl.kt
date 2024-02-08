@@ -42,7 +42,7 @@ private class EnvironmentVariableServiceImpl(
         val path = req.run { "${project.projectNameEn.lowercase()}-${serviceType.toString().lowercase()}-${envType.toString().lowercase()}" }
         vaultUtil.addSecret(req.variableList!!, path)
 
-        val namespace = "${environmentVariable.project.teamNameEn}-${environmentVariable.envType}"
+        val namespace = "${environmentVariable.project.teamNameEn.lowercase()}-${environmentVariable.envType.toString().lowercase()}"
         kubernetesClientUtil.deleteSecret(namespace, path)
     }
 
