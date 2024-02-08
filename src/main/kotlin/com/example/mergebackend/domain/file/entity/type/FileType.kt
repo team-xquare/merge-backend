@@ -1,4 +1,4 @@
-package com.example.mergebackend.domain.project.entity.type
+package com.example.mergebackend.domain.file.entity.type
 
 enum class FileType(
         val extension: String
