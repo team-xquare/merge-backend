@@ -27,7 +27,7 @@ class ProjectServiceImpl (
     @Transactional
     override fun register(req: RegisterProjectRequest): ProjectDetailResponse {
         val user = userFacade.getCurrentUser()
-        val logoUrl = fileService.upload(req.logo, req.projectNameEn).url
+        val logoUrl = req.logo?.let { fileService.upload(req.logo, req.projectNameEn).url } ?: ""
         val projectImageUrls = req.projectImage?.map {
             fileService.upload(it, req.projectNameEn).url
         } ?: emptyList()
