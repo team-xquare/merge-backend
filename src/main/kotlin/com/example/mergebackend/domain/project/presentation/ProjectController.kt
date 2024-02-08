@@ -6,6 +6,8 @@ import com.example.mergebackend.domain.project.presentation.dto.response.Project
 import com.example.mergebackend.domain.project.presentation.dto.response.ProjectListResponse
 import com.example.mergebackend.domain.project.service.ProjectService
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.PropertyNamingStrategy
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
@@ -36,7 +38,8 @@ class ProjectController(
             @RequestPart("projectImage") projectImage: List<MultipartFile>,
             @RequestPart("project") project: String
     ): ProjectDetailResponse {
-        val mapper = ObjectMapper()
+        val mapper = ObjectMapper().registerModule(KotlinModule())
+        mapper.propertyNamingStrategy = PropertyNamingStrategy.SNAKE_CASE
         val request: RegisterProjectRequest = mapper.readValue(project, RegisterProjectRequest::class.java)
         return projectService.register(request, logo, projectImage)
     }
