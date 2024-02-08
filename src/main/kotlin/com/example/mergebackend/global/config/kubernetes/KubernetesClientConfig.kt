@@ -17,8 +17,8 @@ class KubernetesClientConfig(
 ) {
     @PostConstruct
     fun initKubernetesConfig() {
-        val kubeconfig = Base64.getDecoder().decode(kubernetesProperty.kubeConfig).toString()
-        val client = ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(StringReader(kubeconfig))).build()
+        val kubeconfig = Base64.getDecoder().decode(kubernetesProperty.kubeConfig)
+        val client = ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(StringReader(String(kubeconfig)))).build()
         Configuration.setDefaultApiClient(client)
     }
 
