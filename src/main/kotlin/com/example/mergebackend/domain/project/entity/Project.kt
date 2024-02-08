@@ -23,16 +23,14 @@ class Project(
         appStoreUrl: String?,
         projectImage: List<String>?
 ) {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", columnDefinition = "BINARY(16)")
     var id: UUID? = id
         protected set
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "id", columnDefinition = "BINARY(16)")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", updatable = false, nullable = false)
     var user: User = user
         protected set
 
