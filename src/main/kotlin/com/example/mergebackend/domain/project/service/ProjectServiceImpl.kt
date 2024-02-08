@@ -57,7 +57,7 @@ class ProjectServiceImpl (
         )
 
         paths.forEach { path ->
-            vaultUtil.addSecret(emptyMap(), path)
+            vaultUtil.addSecret(mapOf("initKey" to "initValue"), path)
         }
         return project.toResponse()
     }
