@@ -54,16 +54,16 @@ class ProjectServiceImpl (
 
 
     @Transactional
-    override fun update(req: UpdateProjectRequest): ProjectDetailResponse {
+    override fun update(projectId: UUID, req: UpdateProjectRequest): ProjectDetailResponse {
 
         val user = userFacade.getCurrentUser()
-        val project = projectRepository.findByIdOrNull(user.id!!)
+        val project = projectRepository.findByIdOrNull(projectId)
                 ?: throw ProjectNotFoundException
 
         val logoUrl = fileService.upload(req.logo, project.projectNameEn).url
 
         return projectRepository.save(Project(
-                user.id!!,
+                projectId,
                 user,
                 logoUrl,
                 project.projectNameKo,

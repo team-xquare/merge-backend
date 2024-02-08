@@ -10,7 +10,7 @@ interface ProjectService {
 
     fun register(req: RegisterProjectRequest): ProjectDetailResponse
 
-    fun update(req: UpdateProjectRequest): ProjectDetailResponse
+    fun update(projectId: UUID, req: UpdateProjectRequest): ProjectDetailResponse
 
     fun getDetail(id: UUID): ProjectDetailResponse
 

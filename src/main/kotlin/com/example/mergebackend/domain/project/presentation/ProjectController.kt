@@ -33,11 +33,12 @@ class ProjectController(
             req: RegisterProjectRequest
     ): ProjectDetailResponse = projectService.register(req)
 
-    @PutMapping
+    @PutMapping("/{projectId}")
     fun update(
+            @PathVariable("projectId") projectId: UUID,
             @RequestBody @Valid
             req: UpdateProjectRequest
-    ): ProjectDetailResponse = projectService.update(req)
+    ): ProjectDetailResponse = projectService.update(projectId, req)
 
     @GetMapping("/detail")
     fun getProjectDetail(
