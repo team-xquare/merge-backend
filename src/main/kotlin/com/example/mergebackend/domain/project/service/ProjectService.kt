@@ -10,13 +10,9 @@ import java.util.*
 interface ProjectService {
 
     fun register(req: RegisterProjectRequest, logo: MultipartFile, projectImage: List<MultipartFile>): ProjectDetailResponse
-
     fun update(projectId: UUID, req: UpdateProjectRequest): ProjectDetailResponse
-
     fun getDetail(id: UUID): ProjectDetailResponse
-
     fun getProject(email: String): List<ProjectListResponse>
-
     fun getList(): List<ProjectListResponse>
 
 }

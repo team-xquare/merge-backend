@@ -2,6 +2,7 @@ package com.example.mergebackend.domain.project.service
 
 import com.example.mergebackend.domain.file.service.FileService
 import com.example.mergebackend.domain.project.entity.Project
+import com.example.mergebackend.domain.project.exception.AlreadyExistException
 import com.example.mergebackend.domain.project.exception.ProjectNotFoundException
 import com.example.mergebackend.domain.project.presentation.dto.request.RegisterProjectRequest
 import com.example.mergebackend.domain.project.presentation.dto.request.UpdateProjectRequest
@@ -30,6 +31,12 @@ class ProjectServiceImpl (
     @Transactional
     override fun register(req: RegisterProjectRequest, logo: MultipartFile, projectImage: List<MultipartFile>): ProjectDetailResponse {
         val user = userFacade.getCurrentUser()
+
+        val duplicateProject = projectRepository.findByProjectNameEn(req.projectNameEn)
+
+        if (duplicateProject != null) {
+            throw AlreadyExistException
+        }
         val logoUrl = req.logo?.let { fileService.upload(req.logo, req.projectNameEn).url } ?: ""
         val projectImageUrls = req.projectImage?.map {
             fileService.upload(it, req.projectNameEn).url

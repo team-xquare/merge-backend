@@ -9,4 +9,5 @@ import java.util.UUID
 @Repository
 interface ProjectRepository: JpaRepository<Project, UUID>{
     fun findByUser(user: User): List<Project>
+    fun findByProjectNameEn(projectNameEn: String): Project?
 }
