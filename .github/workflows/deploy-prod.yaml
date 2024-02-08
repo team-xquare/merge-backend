@@ -33,21 +33,3 @@ jobs:
           environment: prod
           access_key: ${{ secrets.XQUARE_TOKEN }}
           github_token: ${{ secrets.GH_TOKEN }}
-          buildargs: |
-            DB_URL=${{ secrets.DB_URL }}
-            DB_USER=${{ secrets.DB_USER }}
-            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-            JWT_SECRET=${{ secrets.JWT_SECRET }}
-            ACCESS_EXP=${{ secrets.ACCESS_EXP }}
-            REFRESH_EXP=${{ secrets.REFRESH_EXP }}
-            REDIS_HOST=${{ secrets.REDIS_HOST }}
-            REDIS_PORT=${{ secrets.REDIS_PORT }}
-            MAIL_USER=${{ secrets.MAIL_USER }}
-            MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD }}
-            BUCKET=${{ secrets.BUCKET }}
-            DIRECTORY=${{ secrets.DIRECTORY }}
-            ACCESS_KEY=${{ secrets.ACCESS_KEYT }}
-            SECRET_KEY=${{ secrets.SECRET_KEY }}
-            VAULT_URL=${{ secrets.VAULT_URL }}
-            VAULT_TOKEN=${{ secrets.VAULT_TOKEN }}
-            K8S_CONFIG=${{ secrets.K8S_CONFIG }}
