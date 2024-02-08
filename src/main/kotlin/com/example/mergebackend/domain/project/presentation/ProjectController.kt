@@ -33,12 +33,12 @@ class ProjectController(
     @ResponseStatus(HttpStatus.CREATED)
     fun register(
             @RequestPart("logo", required = true) logo: MultipartFile,
+            @RequestPart("projectImage") projectImage: List<MultipartFile>,
             @RequestPart("project") project: String
     ): ProjectDetailResponse {
         val mapper = ObjectMapper()
         val request: RegisterProjectRequest = mapper.readValue(project, RegisterProjectRequest::class.java)
-        val finalRequest = request.copy(logo = logo)
-        return projectService.register(finalRequest)
+        return projectService.register(request, logo, projectImage)
     }
 
     @PutMapping("/{projectId}")

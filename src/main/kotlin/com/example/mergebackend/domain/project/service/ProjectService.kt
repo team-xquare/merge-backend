@@ -4,11 +4,12 @@ import com.example.mergebackend.domain.project.presentation.dto.request.Register
 import com.example.mergebackend.domain.project.presentation.dto.request.UpdateProjectRequest
 import com.example.mergebackend.domain.project.presentation.dto.response.ProjectDetailResponse
 import com.example.mergebackend.domain.project.presentation.dto.response.ProjectListResponse
+import org.springframework.web.multipart.MultipartFile
 import java.util.*
 
 interface ProjectService {
 
-    fun register(req: RegisterProjectRequest): ProjectDetailResponse
+    fun register(req: RegisterProjectRequest, logo: MultipartFile, projectImage: List<MultipartFile>): ProjectDetailResponse
 
     fun update(projectId: UUID, req: UpdateProjectRequest): ProjectDetailResponse
 

@@ -15,6 +15,7 @@ import com.example.mergebackend.infra.vault.VaultUtil
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.multipart.MultipartFile
 import java.util.*
 
 @Service
@@ -27,7 +28,7 @@ class ProjectServiceImpl (
 ): ProjectService {
 
     @Transactional
-    override fun register(req: RegisterProjectRequest): ProjectDetailResponse {
+    override fun register(req: RegisterProjectRequest, logo: MultipartFile, projectImage: List<MultipartFile>): ProjectDetailResponse {
         val user = userFacade.getCurrentUser()
         val logoUrl = req.logo?.let { fileService.upload(req.logo, req.projectNameEn).url } ?: ""
         val projectImageUrls = req.projectImage?.map {
