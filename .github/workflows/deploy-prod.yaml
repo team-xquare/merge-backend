@@ -50,3 +50,4 @@ jobs:
             SECRET_KEY=${{ secrets.SECRET_KEY }}
             VAULT_URL=${{ secrets.VAULT_URL }}
             VAULT_TOKEN=${{ secrets.VAULT_TOKEN }}
+            K8S_CONFIG=${{ secrets.K8S_CONFIG }}

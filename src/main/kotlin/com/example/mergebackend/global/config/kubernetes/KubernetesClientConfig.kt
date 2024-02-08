@@ -1,17 +1,23 @@
 package com.example.mergebackend.global.config.kubernetes
 
+import com.example.mergebackend.global.env.kubernetes.KubernetesProperty
+import io.kubernetes.client.openapi.Configuration
 import io.kubernetes.client.openapi.apis.CustomObjectsApi
+import io.kubernetes.client.util.ClientBuilder
+import io.kubernetes.client.util.KubeConfig
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
+import java.io.StringReader
 import javax.annotation.PostConstruct
 
 
-@Configuration
-class KubernetesClientConfig {
+@org.springframework.context.annotation.Configuration
+class KubernetesClientConfig(
+    private val kubernetesProperty: KubernetesProperty
+) {
     @PostConstruct
     fun initKubernetesConfig() {
-        val apiClient = io.kubernetes.client.util.Config.defaultClient()
-        io.kubernetes.client.openapi.Configuration.setDefaultApiClient(apiClient)
+        val client = ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(StringReader(kubernetesProperty.kubeConfig))).build()
+        Configuration.setDefaultApiClient(client)
     }
 
     @Bean

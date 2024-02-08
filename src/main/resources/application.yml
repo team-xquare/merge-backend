@@ -58,3 +58,6 @@ cloud:
 vault:
   address: ${VAULT_URL}
   vaultToken: ${VAULT_TOKEN}
+
+kubernetes:
+  kubeConfig: ${K8S_CONFIG}

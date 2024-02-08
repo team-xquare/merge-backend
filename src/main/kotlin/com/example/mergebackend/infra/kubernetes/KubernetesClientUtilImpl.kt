@@ -18,7 +18,7 @@ class KubernetesClientUtilImpl(
                 "v1beta1",
                 namespace,
                 "vaultdynamicsecrets",
-                crName,
+                "$crName-secret",
                 null,
                 null,
                 null,
