@@ -16,7 +16,7 @@ class FileController (
             @RequestParam("projectNameEn", required = true) projectNameEn: String
     ) = fileService.upload(file, projectNameEn)
 
-    @PostMapping("/upload/files")
+    @PostMapping("/uploads")
     fun uploadMultipleFiles(
             @RequestPart("files", required = true) files: List<MultipartFile>,
             @RequestParam("projectNameEn", required = true) projectNameEn: String
