@@ -7,6 +7,7 @@ import io.kubernetes.client.util.ClientBuilder
 import io.kubernetes.client.util.KubeConfig
 import org.springframework.context.annotation.Bean
 import java.io.StringReader
+import java.util.Base64
 import javax.annotation.PostConstruct
 
 
@@ -16,7 +17,8 @@ class KubernetesClientConfig(
 ) {
     @PostConstruct
     fun initKubernetesConfig() {
-        val client = ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(StringReader(kubernetesProperty.kubeConfig))).build()
+        val kubeconfig = Base64.getDecoder().decode(kubernetesProperty.kubeConfig).toString()
+        val client = ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(StringReader(kubeconfig))).build()
         Configuration.setDefaultApiClient(client)
     }
 
