@@ -12,4 +12,6 @@ interface UserRepository: JpaRepository<User, UUID?> {
     fun findByAccountId(accountId: String): User?
 
     fun findBySchoolGcn(schoolGcn: String): User?
+
+    fun findByEmail(email: String): User?
 }
