@@ -24,7 +24,9 @@ class Project(
         projectImage: List<String>?
 ) {
 
-    @Id @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", columnDefinition = "BINARY(16)")
     var id: UUID? = id
         protected set
 
