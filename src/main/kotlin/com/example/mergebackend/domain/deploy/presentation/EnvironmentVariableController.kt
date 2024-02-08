@@ -1,9 +1,11 @@
 package com.example.mergebackend.domain.deploy.presentation
 
 import com.example.mergebackend.domain.deploy.presentation.dto.request.CreateEnvironmentVariableRequest
+import com.example.mergebackend.domain.deploy.presentation.dto.request.UpdateEnvironmentVariableRequest
 import com.example.mergebackend.domain.deploy.service.EnvironmentVariableService
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -21,5 +23,13 @@ class EnvironmentVariableController(
         createEnvironmentVariableRequest: CreateEnvironmentVariableRequest
     ) {
         environmentVariableService.create(createEnvironmentVariableRequest)
+    }
+
+    @PutMapping
+    fun updateEnvironmentVariable(
+        @RequestBody @Valid
+        updateEnvironmentVariableRequest: UpdateEnvironmentVariableRequest
+    ) {
+        environmentVariableService.update(updateEnvironmentVariableRequest)
     }
 }

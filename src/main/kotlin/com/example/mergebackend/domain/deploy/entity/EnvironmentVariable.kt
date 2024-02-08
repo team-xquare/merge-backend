@@ -2,12 +2,13 @@ package com.example.mergebackend.domain.deploy.entity
 
 import com.example.mergebackend.domain.deploy.entity.type.EnvType
 import com.example.mergebackend.domain.deploy.entity.type.ServiceType
+import com.example.mergebackend.domain.project.entity.Project
 import javax.persistence.*
 
 @Entity(name = "environment_variable")
 class EnvironmentVariable(
     id: Long? = null,
-    projectName: String,
+    project: Project,
     envType: EnvType,
     serviceType: ServiceType,
     variableList: Map<String, String>
@@ -18,8 +19,8 @@ class EnvironmentVariable(
     var id: Long? = id
         protected set
 
-    @Column(name = "project_name", nullable = false)
-    var projectName: String = projectName
+    @ManyToOne(fetch = FetchType.LAZY)
+    var project: Project = project
         protected set
 
     @Enumerated(EnumType.STRING)
@@ -35,4 +36,8 @@ class EnvironmentVariable(
     @ElementCollection
     var variableList: Map<String, String> = variableList
         protected set
+
+    fun updateVariableList(variableList: Map<String, String>) {
+        this.variableList = variableList
+    }
 }

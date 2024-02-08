@@ -24,12 +24,15 @@ enum class ErrorCode(
     // 404
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "유저를 찾을 수 없습니다."),
     PROJECT_NOT_FOUND(HttpStatus.NOT_FOUND, "프로젝트를 찾을 수 없습니다."),
+    ENVIRONMENT_VARIABLE_NOT_FOUND(HttpStatus.NOT_FOUND, "환경변수를 찾을 수 없습니다."),
 
     // 409
     ALREADY_SIGN_UP(HttpStatus.CONFLICT, "이미 가입한 계정입니다."),
+    ALREADY_EXISTS_ENVIRONMENT_VARIABLE(HttpStatus.CONFLICT, "이미 환경변수가 존재합니다,"),
 
     // 500
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부 에러"),
     S3_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "AWS S3가 정상 작동하지 않습니다."),
-    VAULT_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Vault 서버 에러")
+    VAULT_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Vault 서버 에러"),
+    KUBERNETES_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Kubernetes 서버 에러")
 }

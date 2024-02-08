@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.ir.backend.js.compile
 
 plugins {
     id("org.springframework.boot") version "2.7.5"
@@ -68,6 +69,9 @@ dependencies {
 
     // vault
     implementation("com.bettercloud:vault-java-driver:5.1.0")
+
+    // kubernetes
+    implementation("io.kubernetes:client-java:15.0.1")
 
 }
 

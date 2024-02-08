@@ -1,6 +1,6 @@
-package com.example.mergebackend.domain.project.exception
+package com.example.mergebackend.domain.deploy.exception
 
 import com.example.mergebackend.global.config.error.data.ErrorCode
 import com.example.mergebackend.global.config.error.exception.BusinessException
 
-object ProjectNotFoundException : BusinessException(ErrorCode.PROJECT_NOT_FOUND)
+object EnvironmentVariableNotFound : BusinessException(ErrorCode.PROJECT_NOT_FOUND)

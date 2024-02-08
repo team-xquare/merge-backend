@@ -6,7 +6,7 @@ import java.util.UUID
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
-data class CreateEnvironmentVariableRequest(
+data class UpdateEnvironmentVariableRequest(
     @field:NotEmptyEnum(message = "envType은 빈 문자열이 될 수 없습니다.")
     @field:NotNull(message = "envType은 null이 될 수 없습니다.")
     val envType: EnvType?,
