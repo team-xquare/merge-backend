@@ -1,5 +1,7 @@
 package com.example.mergebackend.domain.project.entity
 
+import com.example.mergebackend.domain.project.presentation.dto.response.ProjectDetailResponse
+import com.example.mergebackend.domain.project.presentation.dto.response.ProjectListResponse
 import com.example.mergebackend.domain.user.entity.User
 import org.hibernate.annotations.DynamicUpdate
 import java.util.*
@@ -19,19 +21,20 @@ class Project(
         webUrl: String?,
         playStoreUrl: String?,
         appStoreUrl: String?,
+        projectImage: List<String>?
 ) {
 
     @Id @Column(name = "id")
     var id: UUID? = id
         protected set
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @MapsId
     @JoinColumn(name = "id", columnDefinition = "BINARY(16)")
     var user: User = user
         protected set
 
-    @Column(name = "logo", columnDefinition = "VARCHAR(200)", nullable = false)
+    @Column(name = "logo", nullable = false)
     var logo: String = logo
         protected set
 
@@ -51,22 +54,45 @@ class Project(
     var description: String = description
         protected set
 
-    @Column(name = "githubUrl", columnDefinition = "VARCHAR(100)")
+    @Column(name = "githubUrl", columnDefinition = "VARCHAR(255)")
     var githubUrl: String? = githubUrl
         protected set
 
-    @Column(name = "webUrl", columnDefinition = "VARCHAR(100)")
+    @Column(name = "webUrl", columnDefinition = "VARCHAR(255)")
     var webUrl: String? = webUrl
         protected set
 
-    @Column(name = "playStoreUrl", columnDefinition = "VARCHAR(100)")
+    @Column(name = "playStoreUrl", columnDefinition = "VARCHAR(255)")
     var playStoreUrl: String? = playStoreUrl
         protected set
 
-    @Column(name = "appStoreUrl", columnDefinition = "VARCHAR(100)")
+    @Column(name = "appStoreUrl", columnDefinition = "VARCHAR(255)")
     var appStoreUrl: String? = appStoreUrl
         protected set
 
-    @OneToMany(mappedBy = "project", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var projectImage: List<ProjectImage> = listOf()
+    @ElementCollection
+    var projectImage: List<String>? = listOf()
+        protected set
+
+    fun toResponse() = ProjectDetailResponse(
+            this.id!!,
+            this.logo,
+            this.user.studentName,
+            this.projectNameKo,
+            this.projectNameEn,
+            this.teamNameEn,
+            this.description,
+            this.githubUrl,
+            this.webUrl,
+            this.appStoreUrl,
+            this.playStoreUrl,
+            this.projectImage
+    )
+
+    fun toListResponse() = ProjectListResponse(
+            this.id!!,
+            this.projectNameEn,
+            this.teamNameEn,
+            this.logo
+    )
 }
