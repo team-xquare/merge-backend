@@ -35,7 +35,7 @@ class EnvironmentVariable(
 
     @ElementCollection
     @MapKeyColumn(name="variable_key", length=100)
-    @Column(name="variable_value", length=50000)
+    @Column(name = "variable_value", columnDefinition = "TEXT")
     var variableList: Map<String, String> = variableList
         protected set
 
