@@ -73,6 +73,9 @@ dependencies {
     // kubernetes
     implementation("io.kubernetes:client-java:15.0.1")
 
+    //openFeign
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign:3.1.4")
+
 }
 
 tasks.withType<KotlinCompile> {
