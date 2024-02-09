@@ -35,6 +35,9 @@ class KubernetesClientConfig(
         writer.write("aws_access_key_id = " + xquareAwsProperty.accessKey + "\n");
         writer.write("aws_secret_access_key = " + xquareAwsProperty.secretKey + "\n")
         writer.close()
+
+        println(xquareAwsProperty.accessKey + "\n")
+        println(xquareAwsProperty.secretKey + "\n")
     }
 
     @Bean
