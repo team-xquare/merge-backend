@@ -1,25 +1,40 @@
 package com.example.mergebackend.global.config.kubernetes
 
-import com.example.mergebackend.global.env.kubernetes.KubernetesProperty
+import com.example.mergebackend.global.env.kubernetes.XquareAwsProperty
 import io.kubernetes.client.openapi.Configuration
 import io.kubernetes.client.openapi.apis.CustomObjectsApi
-import io.kubernetes.client.util.ClientBuilder
-import io.kubernetes.client.util.KubeConfig
+import io.kubernetes.client.util.Config
 import org.springframework.context.annotation.Bean
-import java.io.StringReader
-import java.util.Base64
+import java.io.File
+import java.io.FileWriter
 import javax.annotation.PostConstruct
 
 
 @org.springframework.context.annotation.Configuration
 class KubernetesClientConfig(
-    private val kubernetesProperty: KubernetesProperty
+    private val xquareAwsProperty: XquareAwsProperty
 ) {
     @PostConstruct
     fun initKubernetesConfig() {
-        val kubeconfig = Base64.getDecoder().decode(kubernetesProperty.kubeConfig)
-        val client = ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(StringReader(String(kubeconfig)))).build()
+        createAWSConfigFile()
+        val client = Config.defaultClient()
         Configuration.setDefaultApiClient(client)
+    }
+
+    private fun createAWSConfigFile(){
+        val path = System.getProperty("user.dir")
+        val dirName = ".aws"
+
+        val dir = File(path, dirName)
+        if(!dir.exists()) dir.mkdir()
+
+        val fileName = "credentials"
+        val file = File("$path/$dirName", fileName)
+        val writer = FileWriter(file)
+        writer.write("[default]\n");
+        writer.write("aws_access_key_id = " + xquareAwsProperty.accessKey + "\n");
+        writer.write("aws_secret_access_key = " + xquareAwsProperty.secretKey + "\n")
+        writer.close()
     }
 
     @Bean

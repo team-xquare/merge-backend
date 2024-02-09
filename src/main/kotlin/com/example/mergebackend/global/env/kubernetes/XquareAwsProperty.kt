@@ -3,8 +3,9 @@ package com.example.mergebackend.global.env.kubernetes
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
 
-@ConfigurationProperties("kubernetes")
+@ConfigurationProperties("xquare")
 @ConstructorBinding
-data class KubernetesProperty(
-    val kubeConfig: String
+data class XquareAwsProperty(
+    val accessKey: String,
+    val secretKey: String
 )
