@@ -42,8 +42,7 @@ class ProjectController(
             @RequestPart("project") project: String
     ): ProjectDetailResponse {
         val request: UpdateProjectRequest = objectMapper.readValue(project, UpdateProjectRequest::class.java)
-        val finalRequest = request.copy(logo = logo)
-        return projectService.update(projectId, finalRequest)
+        return projectService.update(projectId, request, logo)
     }
 
     @GetMapping("/detail")

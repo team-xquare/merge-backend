@@ -1,13 +1,9 @@
 package com.example.mergebackend.domain.project.presentation.dto.request
 
-import org.springframework.web.multipart.MultipartFile
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Pattern
 
 data class UpdateProjectRequest(
-
-        @field:NotBlank(message = "null이 될 수 없습니다.")
-        val logo: MultipartFile,
 
         @field:NotBlank(message = "null이 될 수 없습니다.")
         val description: String,

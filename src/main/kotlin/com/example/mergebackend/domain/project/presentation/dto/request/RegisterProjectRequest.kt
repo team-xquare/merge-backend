@@ -1,12 +1,9 @@
 package com.example.mergebackend.domain.project.presentation.dto.request
 
-import org.springframework.web.multipart.MultipartFile
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Pattern
 
 data class RegisterProjectRequest(
-
-        val logo: MultipartFile?,
 
         @field:NotBlank(message = "null이 될 수 없습니다.")
         val projectNameKo: String,
@@ -42,7 +39,5 @@ data class RegisterProjectRequest(
                 regexp = "^https://apps\\.apple\\.com/[a-z]{2}/app/[a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+$",
                 message = "올바른 앱스토어 주소가 아닙니다."
         )
-        val appStoreUrl: String?,
-
-        val projectImage : List<MultipartFile>?
+        val appStoreUrl: String?
 )
