@@ -72,7 +72,6 @@ dependencies {
 
     // kubernetes
     implementation("io.kubernetes:client-java:15.0.1")
-    implementation("com.amazonaws:aws-java-sdk-eks:1.11.595")
     implementation("software.amazon.awssdk:sts:2.17.64")
 
     //openFeign
