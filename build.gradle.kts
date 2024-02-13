@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jetbrains.kotlin.ir.backend.js.compile
 
 plugins {
     id("org.springframework.boot") version "2.7.5"
@@ -8,6 +7,7 @@ plugins {
     kotlin("plugin.spring") version "1.9.22"
     kotlin("plugin.jpa") version "1.9.22"
     kotlin("kapt") version "1.8.22"
+    kotlin("plugin.serialization") version "1.6.21"
 }
 
 group = "com.example"
@@ -73,9 +73,13 @@ dependencies {
     // kubernetes
     implementation("io.kubernetes:client-java:15.0.1")
     implementation("com.amazonaws:aws-java-sdk-eks:1.11.595")
+    implementation("software.amazon.awssdk:sts:2.17.64")
 
     //openFeign
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign:3.1.4")
+
+    // json
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
 
 }
 

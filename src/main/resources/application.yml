@@ -62,3 +62,6 @@ vault:
 xquare:
   accessKey: ${XQUARE_ACCESS}
   secretKey: ${XQUARE_SECRET}
+
+kubernetes:
+  kubeConfig: ${KUBE_CONFIG}
