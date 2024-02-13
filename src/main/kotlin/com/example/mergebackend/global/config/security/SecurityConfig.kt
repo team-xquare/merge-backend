@@ -41,7 +41,7 @@ class SecurityConfig(
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
                 .antMatchers(HttpMethod.POST, "/deploy/environment-variable").authenticated()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
 
                 .apply(FilterConfig(tokenProvider, tokenResolver, exceptionHandlerFilter))
