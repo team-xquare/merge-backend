@@ -31,7 +31,7 @@ class DeployController(
 
     @GetMapping("/duplicate")
     fun duplicateCheck(
-        @RequestParam("/container-name")
+        @RequestParam("container-name")
         containerName: String
     ): Boolean {
         return deployService.duplicateCheck(containerName)
