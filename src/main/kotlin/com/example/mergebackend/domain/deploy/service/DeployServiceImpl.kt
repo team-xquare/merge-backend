@@ -53,7 +53,7 @@ private class DeployServiceImpl(
                 nameKo = deploy.project.projectNameKo,
                 nameEn = deploy.project.projectNameEn,
                 team = deploy.project.teamNameEn,
-                repository = deploy.githubUrl,
+                repository = getRepository(deploy.githubUrl),
                 organization = deploy.organization,
                 type = deploy.serviceType.toString().lowercase(),
                 useRedis = deploy.useDatabase.redis,
@@ -87,6 +87,15 @@ private class DeployServiceImpl(
         val parts = githubUrl.split("/")
         return if (parts.size >= 4) {
             parts[3]
+        } else {
+            ""
+        }
+    }
+
+    private fun getRepository(githubUrl: String): String {
+        val parts = githubUrl.split("/")
+        return if (parts.size >= 4) {
+            "${parts[3]}/${parts[4]}"
         } else {
             ""
         }
