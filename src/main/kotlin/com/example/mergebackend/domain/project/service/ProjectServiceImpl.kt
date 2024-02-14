@@ -34,8 +34,8 @@ class ProjectServiceImpl (
         val user = userFacade.getCurrentUser()
 
         val logoUrl = logo?.let { fileService.upload(it, req.projectNameEn).url } ?: ""
-        val projectImageUrls = projectImage?.map {
-            fileService.upload(it, req.projectNameEn).url
+        val projectImageUrls = projectImage?.let {
+            fileService.uploads(it, req.projectNameEn).files.map { fileResponse -> fileResponse.url }
         } ?: emptyList()
 
         val project = Project(
