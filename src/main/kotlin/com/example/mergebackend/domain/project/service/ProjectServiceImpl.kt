@@ -129,4 +129,20 @@ class ProjectServiceImpl (
         }
         return false
     }
+
+    @Transactional
+    override fun hide(projectId: UUID) {
+        val project = projectRepository.findByIdOrNull(projectId)
+            ?: throw ProjectNotFoundException
+
+        project.isHidden = true
+    }
+
+    @Transactional
+    override fun unhide(projectId: UUID) {
+        val project = projectRepository.findByIdOrNull(projectId)
+            ?: throw ProjectNotFoundException
+
+        project.isHidden = false
+    }
 }

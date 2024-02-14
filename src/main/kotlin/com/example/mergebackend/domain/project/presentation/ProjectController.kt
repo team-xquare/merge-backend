@@ -62,4 +62,14 @@ class ProjectController(
     fun duplicateProject(
         @RequestParam("projectNameEn") projectNameEn: String
     ): Boolean = projectService.duplicate(projectNameEn)
+
+    @PutMapping("{projectId}/hide")
+    fun hide(
+        @PathVariable("projectId") projectId: UUID
+    )= projectService.hide(projectId)
+
+    @PutMapping("/{projectId}/unhide")
+    fun unhide(
+        @PathVariable("projectId") projectId: UUID
+    )= projectService.unhide(projectId)
 }

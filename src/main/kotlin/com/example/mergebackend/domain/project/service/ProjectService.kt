@@ -15,5 +15,7 @@ interface ProjectService {
     fun getProject(email: String): List<ProjectListResponse>
     fun getList(): List<ProjectListResponse>
     fun duplicate(projectNamEn: String): Boolean
+    fun hide(projectId: UUID)
+    fun unhide(projectId: UUID)
 
 }

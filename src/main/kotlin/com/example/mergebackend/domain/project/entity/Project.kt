@@ -74,6 +74,9 @@ class Project(
     var projectImage: List<String>? = listOf()
         protected set
 
+    @Column(name = "isHidden", columnDefinition = "BIT", nullable = false)
+    var isHidden: Boolean = false
+
     fun toResponse() = ProjectDetailResponse(
             this.id!!,
             this.logo,
