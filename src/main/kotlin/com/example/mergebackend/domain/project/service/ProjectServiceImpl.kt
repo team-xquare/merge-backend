@@ -33,11 +33,6 @@ class ProjectServiceImpl (
     override fun register(req: RegisterProjectRequest, logo: MultipartFile, projectImage: List<MultipartFile>?): ProjectDetailResponse {
         val user = userFacade.getCurrentUser()
 
-        val duplicateProject = projectRepository.findByProjectNameEn(req.projectNameEn)
-
-        if (duplicateProject != null) {
-            throw AlreadyExistException
-        }
         val logoUrl = logo?.let { fileService.upload(it, req.projectNameEn).url } ?: ""
         val projectImageUrls = projectImage?.map {
             fileService.upload(it, req.projectNameEn).url
@@ -123,5 +118,15 @@ class ProjectServiceImpl (
         val projects = projectRepository.findAll()
 
         return projects.map { it.toListResponse() }
+    }
+
+    @Transactional
+    override fun duplicate(projectNamEn: String): Boolean {
+        val duplicateProject = projectRepository.findByProjectNameEn(projectNamEn)
+
+        if (duplicateProject != null) {
+            throw AlreadyExistException
+        }
+        return false
     }
 }

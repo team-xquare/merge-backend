@@ -57,4 +57,9 @@ class ProjectController(
 
     @GetMapping("/list")
     fun getList(): List<ProjectListResponse> = projectService.getList()
+
+    @GetMapping("/duplicate")
+    fun duplicateProject(
+        @RequestParam("projectNameEn") projectNameEn: String
+    ): Boolean = projectService.duplicate(projectNameEn)
 }
