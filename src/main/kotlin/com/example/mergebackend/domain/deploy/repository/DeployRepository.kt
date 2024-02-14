@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.util.UUID
 
 interface DeployRepository : JpaRepository<Deploy, UUID> {
-    fun existsByProjectAndServiceType(project: Project, serviceType: ServiceType): Boolean
+    fun existsByContainerName(containerName: String): Boolean
 }

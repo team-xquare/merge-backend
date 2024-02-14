@@ -55,7 +55,7 @@ class Deploy(
         protected set
 
     @Column(name = "container_name", nullable = false)
-    var contianerNmae: String = containerName
+    var containerName: String = containerName
         protected set
 
     @Column(name = "github_url", nullable = false)
