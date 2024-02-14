@@ -13,13 +13,17 @@ enum class ErrorCode(
     WRONG_IMAGE(HttpStatus.BAD_REQUEST, "잘못된 이미지 형식입니다."),
     INVALID_FILE_EXTENSION(HttpStatus.BAD_REQUEST, "지원하지 않는 파일 확장자입니다."),
     IMAGE_DELETE_FAIL(HttpStatus.BAD_REQUEST, "이미지를 삭제하는데 실패했습니다."),
+    FEIGN_BAD_REQUEST(HttpStatus.BAD_REQUEST, "Feign Bad Request"),
+
 
     //401
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "유효하지 않은 토큰입니다."),
     EXPIRED_TOKEN(HttpStatus.UNAUTHORIZED, "토큰이 만료되었습니다."),
+    FEIGN_UNAUTHORIZATION(HttpStatus.UNAUTHORIZED, "Feign UnAuthorization"),
 
     //403
     PERMISSION_DENIED(HttpStatus.FORBIDDEN, "권한이 거부되었습니다."),
+    FEIGN_FORBIDDEN_ERROR(HttpStatus.FORBIDDEN, "Feign Forbidden Error"),
 
     // 404
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "유저를 찾을 수 없습니다."),
@@ -37,5 +41,6 @@ enum class ErrorCode(
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부 에러"),
     S3_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "AWS S3가 정상 작동하지 않습니다."),
     VAULT_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Vault 서버 에러"),
-    KUBERNETES_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Kubernetes 서버 에러")
+    KUBERNETES_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Kubernetes 서버 에러"),
+    FEIGN_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Feign Server Error")
 }
