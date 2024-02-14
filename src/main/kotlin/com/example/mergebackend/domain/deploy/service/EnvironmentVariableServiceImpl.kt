@@ -39,7 +39,7 @@ private class EnvironmentVariableServiceImpl(
                 )
             }
         )
-        val path = req.run { "${deploy.project.projectNameEn.lowercase()}-${serviceType.toString().lowercase()}-${envType.toString().lowercase()}" }
+        val path = req.run { "${deploy.project.projectNameEn.lowercase()}-${deploy.serviceType.toString().lowercase()}-${envType.toString().lowercase()}" }
         vaultUtil.addSecret(req.variableList!!, path)
 
         val namespace = "${environmentVariable.deploy.project.teamNameEn.lowercase()}-${environmentVariable.envType.toString().lowercase()}"

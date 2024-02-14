@@ -11,10 +11,6 @@ data class CreateEnvironmentVariableRequest(
     @field:NotNull(message = "envType은 null이 될 수 없습니다.")
     val envType: EnvType?,
 
-    @field:NotEmptyEnum(message = "envType은 빈 문자열이 될 수 없습니다.")
-    @field:NotNull(message = "serviceType은 null이 될 수 없습니다.")
-    val serviceType: ServiceType?,
-
     @field:NotNull(message = "variableList는 null이 될 수 없습니다.")
     val variableList: Map<String, String>?,
 
