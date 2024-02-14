@@ -1,6 +1,7 @@
 package com.example.mergebackend.domain.deploy.service
 
 import com.example.mergebackend.domain.deploy.entity.Deploy
+import com.example.mergebackend.domain.deploy.entity.vo.DeployStatus
 import com.example.mergebackend.domain.deploy.presentation.dto.request.CreateDeployRequest
 import com.example.mergebackend.domain.deploy.presentation.dto.request.WebhookRequest
 import com.example.mergebackend.domain.deploy.repository.DeployRepository
@@ -27,7 +28,8 @@ private class DeployServiceImpl(
                     serviceType = serviceType,
                     organization = organization,
                     useDatabase = useDatabase,
-                    isApproved = false
+                    isApproved = false,
+                    deployStatus = DeployStatus.PENDING_APPROVE
                 )
             }
         )

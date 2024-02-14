@@ -1,6 +1,7 @@
 package com.example.mergebackend.domain.deploy.entity
 
 import com.example.mergebackend.domain.deploy.entity.type.ServiceType
+import com.example.mergebackend.domain.deploy.entity.vo.DeployStatus
 import com.example.mergebackend.domain.deploy.entity.vo.UseDatabase
 import com.example.mergebackend.domain.project.entity.Project
 import java.util.UUID
@@ -14,7 +15,8 @@ class Deploy(
     serviceType: ServiceType,
     organization: String,
     useDatabase: UseDatabase,
-    isApproved: Boolean
+    isApproved: Boolean,
+    deployStatus: DeployStatus
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,5 +46,9 @@ class Deploy(
 
     @Column(name = "is_approved", nullable = false)
     var isApproved: Boolean = isApproved
+        protected set
+
+    @Enumerated(EnumType.STRING)
+    var deployStatus: DeployStatus = deployStatus
         protected set
 }
