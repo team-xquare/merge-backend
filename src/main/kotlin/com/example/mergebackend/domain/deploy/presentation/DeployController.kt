@@ -1,6 +1,7 @@
 package com.example.mergebackend.domain.deploy.presentation
 
 import com.example.mergebackend.domain.deploy.presentation.dto.request.CreateDeployRequest
+import com.example.mergebackend.domain.deploy.presentation.dto.response.CreateDeployResponse
 import com.example.mergebackend.domain.deploy.service.DeployService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PostMapping
@@ -19,8 +20,8 @@ class DeployController(
     fun createDeploy(
         @RequestBody
         createDeployRequest: CreateDeployRequest
-    ) {
-        deployService.createDeploy(createDeployRequest)
+    ): CreateDeployResponse {
+        return deployService.createDeploy(createDeployRequest)
     }
 
 }

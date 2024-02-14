@@ -4,6 +4,7 @@ import com.example.mergebackend.domain.deploy.entity.Deploy
 import com.example.mergebackend.domain.deploy.entity.vo.DeployStatus
 import com.example.mergebackend.domain.deploy.presentation.dto.request.CreateDeployRequest
 import com.example.mergebackend.domain.deploy.presentation.dto.request.WebhookRequest
+import com.example.mergebackend.domain.deploy.presentation.dto.response.CreateDeployResponse
 import com.example.mergebackend.domain.deploy.repository.DeployRepository
 import com.example.mergebackend.domain.project.exception.ProjectNotFoundException
 import com.example.mergebackend.domain.project.repository.ProjectRepository
@@ -16,11 +17,11 @@ private class DeployServiceImpl(
     private val deployRepository: DeployRepository,
     private val projectRepository: ProjectRepository
 ): DeployService {
-    override fun createDeploy(createDeployRequest: CreateDeployRequest) {
+    override fun createDeploy(createDeployRequest: CreateDeployRequest): CreateDeployResponse {
         val project = projectRepository.findByIdOrNull(createDeployRequest.projectId) ?: throw ProjectNotFoundException
 
         val organization = extractOrganization(createDeployRequest.githubUrl)
-        deployRepository.save(
+        val deploy = deployRepository.save(
             createDeployRequest.run {
                 Deploy(
                     project = project,
@@ -35,6 +36,7 @@ private class DeployServiceImpl(
                 )
             }
         )
+        return CreateDeployResponse(deployId = deploy.id!!)
     }
 
     override fun regenerateAccessKey(deployId: UUID) {
