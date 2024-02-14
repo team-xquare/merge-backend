@@ -42,7 +42,7 @@ class Deploy(
     var organization: String = organization
         protected set
 
-    @ElementCollection
+    @Embedded
     var useDatabase: UseDatabase = useDatabase
         protected set
 
