@@ -2,6 +2,7 @@ package com.example.mergebackend.domain.deploy.service
 
 import com.example.mergebackend.domain.deploy.entity.Deploy
 import com.example.mergebackend.domain.deploy.entity.vo.DeployStatus
+import com.example.mergebackend.domain.deploy.exception.AlreadyExistsDeployException
 import com.example.mergebackend.domain.deploy.presentation.dto.request.CreateDeployRequest
 import com.example.mergebackend.domain.deploy.presentation.dto.request.WebhookRequest
 import com.example.mergebackend.domain.deploy.presentation.dto.response.CreateDeployResponse
@@ -19,6 +20,9 @@ private class DeployServiceImpl(
 ): DeployService {
     override fun createDeploy(createDeployRequest: CreateDeployRequest): CreateDeployResponse {
         val project = projectRepository.findByIdOrNull(createDeployRequest.projectId) ?: throw ProjectNotFoundException
+        if(deployRepository.existsByProjectAndServiceType(project, createDeployRequest.serviceType)) {
+            throw AlreadyExistsDeployException
+        }
 
         val organization = extractOrganization(createDeployRequest.githubUrl)
         val deploy = deployRepository.save(

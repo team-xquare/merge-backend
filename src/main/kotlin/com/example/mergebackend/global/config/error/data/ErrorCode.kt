@@ -31,6 +31,7 @@ enum class ErrorCode(
     ALREADY_SIGN_UP(HttpStatus.CONFLICT, "이미 가입한 계정입니다."),
     ALREADY_EXISTS_ENVIRONMENT_VARIABLE(HttpStatus.CONFLICT, "이미 환경변수가 존재합니다,"),
     ALREADY_EXIST(HttpStatus.BAD_REQUEST, "이미 존재하는 프로젝트 이름입니다."),
+    ALREADY_EXISTS_DEPLOY(HttpStatus.CONFLICT, "이미 해당 배포정보에 대한 배포내역이 존재합니다."),
 
     // 500
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부 에러"),
