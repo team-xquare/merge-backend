@@ -24,12 +24,13 @@ import java.util.*
 class ProjectServiceImpl (
         private val projectRepository: ProjectRepository,
         private val userFacade: UserFacade,
-        private val fileService: FileService, private val userRepository: UserRepository,
+        private val fileService: FileService,
+        private val userRepository: UserRepository,
         private val vaultUtil: VaultUtil
 ): ProjectService {
 
     @Transactional
-    override fun register(req: RegisterProjectRequest, logo: MultipartFile, projectImage: List<MultipartFile>): ProjectDetailResponse {
+    override fun register(req: RegisterProjectRequest, logo: MultipartFile, projectImage: List<MultipartFile>?): ProjectDetailResponse {
         val user = userFacade.getCurrentUser()
 
         val duplicateProject = projectRepository.findByProjectNameEn(req.projectNameEn)
@@ -37,8 +38,8 @@ class ProjectServiceImpl (
         if (duplicateProject != null) {
             throw AlreadyExistException
         }
-        val logoUrl = req.logo?.let { fileService.upload(req.logo, req.projectNameEn).url } ?: ""
-        val projectImageUrls = req.projectImage?.map {
+        val logoUrl = logo?.let { fileService.upload(it, req.projectNameEn).url } ?: ""
+        val projectImageUrls = projectImage?.map {
             fileService.upload(it, req.projectNameEn).url
         } ?: emptyList()
 
@@ -72,13 +73,13 @@ class ProjectServiceImpl (
 
 
     @Transactional
-    override fun update(projectId: UUID, req: UpdateProjectRequest): ProjectDetailResponse {
+    override fun update(projectId: UUID, req: UpdateProjectRequest, logo: MultipartFile): ProjectDetailResponse {
 
         val user = userFacade.getCurrentUser()
         val project = projectRepository.findByIdOrNull(projectId)
                 ?: throw ProjectNotFoundException
 
-        val logoUrl = fileService.upload(req.logo, project.projectNameEn).url
+        val logoUrl = fileService.upload(logo, project.projectNameEn).url
 
         return projectRepository.save(Project(
                 projectId,

@@ -25,7 +25,6 @@ jobs:
 
       - name: Build gradle
         run: ./gradlew build -x test
-            
 
       - name: Deploy to xquare
         uses: team-xquare/xquare-deployment-action@master

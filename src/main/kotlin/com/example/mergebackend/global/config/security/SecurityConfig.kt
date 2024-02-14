@@ -38,9 +38,6 @@ class SecurityConfig(
 
                 .and()
                 .authorizeRequests()
-
-                .antMatchers(HttpMethod.POST, "/auth/sms").permitAll()
-                .antMatchers(HttpMethod.GET, "/auth/sms/check").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
                 .antMatchers(HttpMethod.POST, "/deploy/environment-variable").authenticated()

@@ -59,5 +59,9 @@ vault:
   address: ${VAULT_URL}
   vaultToken: ${VAULT_TOKEN}
 
+xquare:
+  accessKey: ${XQUARE_ACCESS}
+  secretKey: ${XQUARE_SECRET}
+
 kubernetes:
-  kubeConfig: ${K8S_CONFIG}
+  kubeConfig: ${KUBE_CONFIG}
