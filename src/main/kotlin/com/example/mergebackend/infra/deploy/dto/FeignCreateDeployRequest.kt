@@ -13,5 +13,5 @@ data class FeignCreateDeployRequest(
     val organization: String,
     val type: String,
     val useRedis: Boolean,
-    val useMysSQL: Boolean
+    val useMySQL: Boolean
 )
