@@ -25,6 +25,6 @@ class UserController(
     fun updateProfile(
         @RequestBody @Valid
         req: UpdateProfileRequest
-    ): UserProfileResponse = updateProfile(req)
+    ): UserProfileResponse = userService.updateProfile(req)
 
 }
