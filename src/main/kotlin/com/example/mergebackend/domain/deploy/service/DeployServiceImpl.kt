@@ -67,20 +67,8 @@ private class DeployServiceImpl(
         TODO("Not yet implemented")
     }
 
-    override fun getClub(deployId: UUID) {
-        TODO("Not yet implemented")
-    }
-
-    override fun verifyAndGetRole(projectName: String, repository: String, accessKey: String, projectType: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun deployApprove(deployId: UUID) {
-        TODO("Not yet implemented")
-    }
-
-    override fun containerRestartWebhook(webhookRequest: WebhookRequest) {
-        TODO("Not yet implemented")
+    override fun duplicateCheck(containerName: String): Boolean {
+        return deployRepository.existsByContainerName(containerName)
     }
 
     private fun extractOrganization(githubUrl: String): String {
