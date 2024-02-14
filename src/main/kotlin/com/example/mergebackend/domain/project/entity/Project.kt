@@ -94,7 +94,7 @@ class Project(
 
     fun toListResponse() = ProjectListResponse(
             this.id!!,
-            this.projectNameEn,
+            this.projectNameKo,
             this.teamNameEn,
             this.logo
     )
