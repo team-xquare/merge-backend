@@ -55,7 +55,7 @@ private class DeployServiceImpl(
                 team = deploy.project.teamNameEn,
                 repository = deploy.githubUrl,
                 organization = deploy.organization,
-                type = deploy.serviceType.toString(),
+                type = deploy.serviceType.toString().lowercase(),
                 useRedis = deploy.useDatabase.redis,
                 useMysSQL = deploy.useDatabase.mysql
             )
