@@ -25,9 +25,6 @@ private class DeployServiceImpl(
 ): DeployService {
     override fun createDeploy(createDeployRequest: CreateDeployRequest): CreateDeployResponse {
         val project = projectRepository.findByIdOrNull(createDeployRequest.projectId) ?: throw ProjectNotFoundException
-        if(deployRepository.existsByProjectAndServiceType(project, createDeployRequest.serviceType)) {
-            throw AlreadyExistsDeployException
-        }
 
         val organization = extractOrganization(createDeployRequest.githubUrl)
         val deploy = deployRepository.save(
@@ -51,7 +48,7 @@ private class DeployServiceImpl(
             FeignCreateDeployRequest(
                 email = user.email,
                 nameKo = deploy.project.projectNameKo,
-                nameEn = deploy.project.projectNameEn,
+                nameEn = deploy.contianerNmae,
                 team = deploy.project.teamNameEn,
                 repository = getRepository(deploy.githubUrl),
                 organization = deploy.organization,
