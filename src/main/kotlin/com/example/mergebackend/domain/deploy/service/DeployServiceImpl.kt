@@ -57,7 +57,7 @@ private class DeployServiceImpl(
                 organization = deploy.organization,
                 type = deploy.serviceType.toString().lowercase(),
                 useRedis = deploy.useDatabase.redis,
-                useMysSQL = deploy.useDatabase.mysql
+                useMySQL = deploy.useDatabase.mysql
             )
         )
         return CreateDeployResponse(deployId = deploy.id!!)
