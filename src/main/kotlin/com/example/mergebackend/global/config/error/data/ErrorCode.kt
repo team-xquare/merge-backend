@@ -25,6 +25,7 @@ enum class ErrorCode(
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "유저를 찾을 수 없습니다."),
     PROJECT_NOT_FOUND(HttpStatus.NOT_FOUND, "프로젝트를 찾을 수 없습니다."),
     ENVIRONMENT_VARIABLE_NOT_FOUND(HttpStatus.NOT_FOUND, "환경변수를 찾을 수 없습니다."),
+    DEPLOY_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND, "배포를 찾을 수 없습니다."),
 
     // 409
     ALREADY_SIGN_UP(HttpStatus.CONFLICT, "이미 가입한 계정입니다."),

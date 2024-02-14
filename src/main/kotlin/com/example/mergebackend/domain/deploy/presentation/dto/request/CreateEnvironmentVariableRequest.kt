@@ -18,5 +18,5 @@ data class CreateEnvironmentVariableRequest(
     @field:NotNull(message = "variableList는 null이 될 수 없습니다.")
     val variableList: Map<String, String>?,
 
-    val projectId: UUID
+    val deployId: UUID
 )
