@@ -9,6 +9,9 @@ import com.example.mergebackend.domain.deploy.presentation.dto.response.CreateDe
 import com.example.mergebackend.domain.deploy.repository.DeployRepository
 import com.example.mergebackend.domain.project.exception.ProjectNotFoundException
 import com.example.mergebackend.domain.project.repository.ProjectRepository
+import com.example.mergebackend.global.common.facade.UserFacade
+import com.example.mergebackend.infra.deploy.DeployClient
+import com.example.mergebackend.infra.deploy.dto.FeignCreateDeployRequest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.util.*
@@ -16,7 +19,9 @@ import java.util.*
 @Service
 private class DeployServiceImpl(
     private val deployRepository: DeployRepository,
-    private val projectRepository: ProjectRepository
+    private val projectRepository: ProjectRepository,
+    private val deployClient: DeployClient,
+    private val userFacade: UserFacade
 ): DeployService {
     override fun createDeploy(createDeployRequest: CreateDeployRequest): CreateDeployResponse {
         val project = projectRepository.findByIdOrNull(createDeployRequest.projectId) ?: throw ProjectNotFoundException
@@ -39,6 +44,21 @@ private class DeployServiceImpl(
                     githubUrl = githubUrl
                 )
             }
+        )
+
+        val user = userFacade.getCurrentUser()
+        deployClient.createDeploy(
+            FeignCreateDeployRequest(
+                email = user.email,
+                nameKo = deploy.project.projectNameKo,
+                nameEn = deploy.project.projectNameEn,
+                team = deploy.project.teamNameEn,
+                repository = deploy.githubUrl,
+                organization = deploy.organization,
+                type = deploy.serviceType.toString(),
+                useRedis = deploy.useDatabase.redis,
+                useMysSQL = deploy.useDatabase.mysql
+            )
         )
         return CreateDeployResponse(deployId = deploy.id!!)
     }

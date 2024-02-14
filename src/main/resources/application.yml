@@ -65,3 +65,6 @@ xquare:
 
 kubernetes:
   kubeConfig: ${KUBE_CONFIG}
+
+url:
+  deploy: ${DEPLOY_URL}
