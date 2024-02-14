@@ -71,7 +71,7 @@ class Project(
         protected set
 
     @ElementCollection
-    var projectImage: List<String>? = listOf()
+    var projectImage: List<String>? = projectImage
         protected set
 
     @Column(name = "isHidden", columnDefinition = "BIT", nullable = false)
