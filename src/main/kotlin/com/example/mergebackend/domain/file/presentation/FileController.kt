@@ -1,7 +1,6 @@
 package com.example.mergebackend.domain.file.presentation
 
 import com.example.mergebackend.domain.file.service.FileService
-import com.example.mergebackend.domain.project.presentation.dto.response.ProjectListResponse
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 

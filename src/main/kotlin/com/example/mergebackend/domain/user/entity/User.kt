@@ -56,4 +56,8 @@ class User (
         this.email
     )
 
+    fun updateGithub(newGithub: String) {
+        this.github = newGithub
+    }
+
 }
