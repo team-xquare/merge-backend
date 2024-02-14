@@ -17,7 +17,8 @@ class Deploy(
     useDatabase: UseDatabase,
     isApproved: Boolean,
     deployStatus: DeployStatus,
-    containerName: String
+    containerName: String,
+    githubUrl: String
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -55,5 +56,9 @@ class Deploy(
 
     @Column(name = "container_name", nullable = false)
     var contianerNmae: String = containerName
+        protected set
+
+    @Column(name = "github_url", nullable = false)
+    var githubUrl: String = githubUrl
         protected set
 }

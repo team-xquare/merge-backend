@@ -19,7 +19,7 @@ private class DeployServiceImpl(
     override fun createDeploy(createDeployRequest: CreateDeployRequest) {
         val project = projectRepository.findByIdOrNull(createDeployRequest.projectId) ?: throw ProjectNotFoundException
 
-        val organization = extractOrganization(project.githubUrl!!)
+        val organization = extractOrganization(createDeployRequest.githubUrl)
         deployRepository.save(
             createDeployRequest.run {
                 Deploy(
@@ -30,7 +30,8 @@ private class DeployServiceImpl(
                     useDatabase = useDatabase,
                     isApproved = false,
                     deployStatus = DeployStatus.PENDING_APPROVE,
-                    containerName = containerName
+                    containerName = containerName,
+                    githubUrl = githubUrl
                 )
             }
         )

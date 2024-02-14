@@ -8,5 +8,6 @@ data class CreateDeployRequest(
     val containerName: String,
     val projectId: UUID,
     val serviceType: ServiceType,
-    val useDatabase: UseDatabase
+    val useDatabase: UseDatabase,
+    val githubUrl: String
 )
