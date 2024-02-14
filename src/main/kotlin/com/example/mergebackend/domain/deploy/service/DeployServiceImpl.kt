@@ -29,7 +29,8 @@ private class DeployServiceImpl(
                     organization = organization,
                     useDatabase = useDatabase,
                     isApproved = false,
-                    deployStatus = DeployStatus.PENDING_APPROVE
+                    deployStatus = DeployStatus.PENDING_APPROVE,
+                    containerName = containerName
                 )
             }
         )

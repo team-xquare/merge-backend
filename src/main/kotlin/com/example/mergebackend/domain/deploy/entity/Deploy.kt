@@ -16,7 +16,8 @@ class Deploy(
     organization: String,
     useDatabase: UseDatabase,
     isApproved: Boolean,
-    deployStatus: DeployStatus
+    deployStatus: DeployStatus,
+    containerName: String
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -50,5 +51,9 @@ class Deploy(
 
     @Enumerated(EnumType.STRING)
     var deployStatus: DeployStatus = deployStatus
+        protected set
+
+    @Column(name = "container_name", nullable = false)
+    var contianerNmae: String = containerName
         protected set
 }
