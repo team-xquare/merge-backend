@@ -1,4 +1,4 @@
-package com.example.mergebackend.domain.deploy.service
+package com.example.mergebackend.domain.deploy.service.impl
 
 import com.example.mergebackend.domain.deploy.entity.EnvironmentVariable
 import com.example.mergebackend.domain.deploy.exception.AlreadyExistsEnvironmentVariable
@@ -8,7 +8,7 @@ import com.example.mergebackend.domain.deploy.presentation.dto.request.CreateEnv
 import com.example.mergebackend.domain.deploy.presentation.dto.request.UpdateEnvironmentVariableRequest
 import com.example.mergebackend.domain.deploy.repository.DeployRepository
 import com.example.mergebackend.domain.deploy.repository.EnvironmentVariableRepository
-import com.example.mergebackend.domain.project.exception.ProjectNotFoundException
+import com.example.mergebackend.domain.deploy.service.EnvironmentVariableService
 import com.example.mergebackend.infra.kubernetes.KubernetesClientUtil
 import com.example.mergebackend.infra.vault.VaultUtil
 import org.springframework.data.repository.findByIdOrNull
@@ -22,7 +22,7 @@ private class EnvironmentVariableServiceImpl(
     private val deployRepository: DeployRepository,
     private val vaultUtil: VaultUtil,
     private val kubernetesClientUtil: KubernetesClientUtil
-): EnvironmentVariableService{
+): EnvironmentVariableService {
     override fun create(req: CreateEnvironmentVariableRequest) {
         val deploy = deployRepository.findByIdOrNull(req.deployId) ?: throw DeployNotFoundException
 

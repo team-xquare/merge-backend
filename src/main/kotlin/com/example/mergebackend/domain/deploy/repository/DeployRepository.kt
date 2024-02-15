@@ -8,4 +8,6 @@ import java.util.UUID
 
 interface DeployRepository : JpaRepository<Deploy, UUID> {
     fun existsByContainerName(containerName: String): Boolean
+    fun findAllByProject(project: Project): List<Deploy>
+    fun findByContainerNameAndServiceType(containerName: String, serviceType: ServiceType): Deploy
 }

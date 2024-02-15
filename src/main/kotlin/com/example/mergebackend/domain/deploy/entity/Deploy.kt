@@ -18,7 +18,9 @@ class Deploy(
     isApproved: Boolean,
     deployStatus: DeployStatus,
     containerName: String,
-    githubUrl: String
+    githubUrl: String,
+    deployUrl: Map<String,String>? = null,
+    lastDeploy: String? = null
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -61,4 +63,16 @@ class Deploy(
     @Column(name = "github_url", nullable = false)
     var githubUrl: String = githubUrl
         protected set
+
+    @ElementCollection
+    var deployUrl: Map<String,String>? = deployUrl
+        protected set
+
+    @Column(name = "last_deploy", nullable = false)
+    var lastDeploy: String? = lastDeploy
+        protected set
+
+    fun updateDeployUrl(deployUrl: Map<String, String>?){
+        this.deployUrl = deployUrl
+    }
 }

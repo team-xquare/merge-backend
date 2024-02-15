@@ -1,12 +1,16 @@
-package com.example.mergebackend.domain.deploy.service
+package com.example.mergebackend.domain.deploy.service.impl
 
 import com.example.mergebackend.domain.deploy.entity.Deploy
+import com.example.mergebackend.domain.deploy.entity.type.ServiceType
 import com.example.mergebackend.domain.deploy.entity.vo.DeployStatus
 import com.example.mergebackend.domain.deploy.exception.AlreadyExistsDeployException
 import com.example.mergebackend.domain.deploy.presentation.dto.request.CreateDeployRequest
-import com.example.mergebackend.domain.deploy.presentation.dto.request.WebhookRequest
 import com.example.mergebackend.domain.deploy.presentation.dto.response.CreateDeployResponse
+import com.example.mergebackend.domain.deploy.presentation.dto.response.DeployListResponse
+import com.example.mergebackend.domain.deploy.presentation.dto.response.DeployResponse
 import com.example.mergebackend.domain.deploy.repository.DeployRepository
+import com.example.mergebackend.domain.deploy.service.DeployService
+import com.example.mergebackend.domain.deploy.service.util.DeployUtil
 import com.example.mergebackend.domain.project.exception.ProjectNotFoundException
 import com.example.mergebackend.domain.project.repository.ProjectRepository
 import com.example.mergebackend.global.common.facade.UserFacade
@@ -29,7 +33,7 @@ private class DeployServiceImpl(
         if(deployRepository.existsByContainerName(createDeployRequest.containerName)) {
             throw AlreadyExistsDeployException
         }
-        val organization = extractOrganization(createDeployRequest.githubUrl)
+        val organization = DeployUtil.extractOrganization(createDeployRequest.githubUrl)
         val deploy = deployRepository.save(
             createDeployRequest.run {
                 Deploy(
@@ -53,7 +57,7 @@ private class DeployServiceImpl(
                 nameKo = deploy.project.projectNameKo,
                 nameEn = deploy.containerName,
                 team = deploy.project.teamNameEn,
-                repository = getRepository(deploy.githubUrl),
+                repository = DeployUtil.getRepository(deploy.githubUrl),
                 organization = deploy.organization,
                 type = deploy.serviceType.toString().lowercase(),
                 useRedis = deploy.useDatabase.redis,
@@ -71,21 +75,35 @@ private class DeployServiceImpl(
         return deployRepository.existsByContainerName(containerName)
     }
 
-    private fun extractOrganization(githubUrl: String): String {
-        val parts = githubUrl.split("/")
-        return if (parts.size >= 4) {
-            parts[3]
-        } else {
-            ""
+    override fun getDeployList(projectId: UUID): DeployListResponse {
+        val project = projectRepository.findByIdOrNull(projectId) ?: throw ProjectNotFoundException
+        val deployList = deployRepository.findAllByProject(project).map {
+            DeployResponse(
+                containerName = it.containerName,
+                repository = DeployUtil.getRepository(it.githubUrl),
+                lastDeploy = it.lastDeploy ?: "배포내역이 없습니다",
+                url = it.deployUrl ?: mapOf("stag" to "배포내역이 존재하지 않습니다.", "prod" to "배포내역이 존재하지 않습니다.")
+            )
         }
+        return DeployListResponse(deployList)
     }
 
-    private fun getRepository(githubUrl: String): String {
-        val parts = githubUrl.split("/")
-        return if (parts.size >= 4) {
-            "${parts[3]}/${parts[4]}"
-        } else {
-            ""
+    override fun updateUrl(
+        containerName: String,
+        serviceType: ServiceType,
+        prefix: String?,
+        domain: Map<String, String>?
+    ) {
+        val deploy = deployRepository.findByContainerNameAndServiceType(containerName, serviceType)
+        val deployUrl = mapOf<String, String>()
+        prefix?.let {
+            deployUrl["stag"] to "https://stag-server.xquare.app/$prefix"
+            deployUrl["prod"] to "https://prod-server.xquare.app/$prefix"
         }
+        domain?.let {
+            deployUrl["stag"] to "https://${domain["stag"]}"
+            deployUrl["prod"] to "https://${domain["prod"]}"
+        }
+        deploy.updateDeployUrl(deployUrl)
     }
 }
