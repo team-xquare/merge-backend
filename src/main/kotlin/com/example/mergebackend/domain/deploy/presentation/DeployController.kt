@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import java.nio.charset.Charset
+import java.util.Base64
 import javax.validation.Valid
 
 @Validated
@@ -50,11 +52,13 @@ class DeployController(
         @RequestParam(value = "domain", required = false)
         domain: String?
     ) {
+
         val domainMap = domain?.let { it ->
-            it.lines().associate {
-            val (key, value) = it.split(":").map { it.trim() }
-            key to value
-        }
+            val decodedDomain = Base64.getDecoder().decode(it)
+            String(decodedDomain, Charset.defaultCharset()).lines().associate {
+                val (key, value) = it.split(":").map { it.trim() }
+                key to value
+            }
         }
         deployService.updateUrl(containerName, serviceType, prefix, domainMap)
     }

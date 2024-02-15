@@ -4,6 +4,7 @@ import com.example.mergebackend.domain.deploy.entity.Deploy
 import com.example.mergebackend.domain.deploy.entity.type.ServiceType
 import com.example.mergebackend.domain.deploy.entity.vo.DeployStatus
 import com.example.mergebackend.domain.deploy.exception.AlreadyExistsDeployException
+import com.example.mergebackend.domain.deploy.exception.DeployNotFoundException
 import com.example.mergebackend.domain.deploy.presentation.dto.request.CreateDeployRequest
 import com.example.mergebackend.domain.deploy.presentation.dto.response.CreateDeployResponse
 import com.example.mergebackend.domain.deploy.presentation.dto.response.DeployListResponse
@@ -96,15 +97,15 @@ private class DeployServiceImpl(
         prefix: String?,
         domain: Map<String, String>?
     ) {
-        val deploy = deployRepository.findByContainerNameAndServiceType(containerName, serviceType)
-        val deployUrl = mapOf<String, String>()
+        val deploy = deployRepository.findByContainerNameAndServiceType(containerName, serviceType) ?: throw DeployNotFoundException
+        val deployUrl = mutableMapOf<String, String>()
         prefix?.let {
-            deployUrl["stag"] to "https://stag-server.xquare.app/$prefix"
-            deployUrl["prod"] to "https://prod-server.xquare.app/$prefix"
+            deployUrl["stag"] = "https://stag-server.xquare.app$prefix"
+            deployUrl["prod"] = "https://prod-server.xquare.app$prefix"
         }
         domain?.let {
-            deployUrl["stag"] to "https://${domain["stag"]}"
-            deployUrl["prod"] to "https://${domain["prod"]}"
+            deployUrl["stag"] = "https://${domain["stag"]}"
+            deployUrl["prod"] = "https://${domain["prod"]}"
         }
         deploy.updateDeployUrl(deployUrl)
     }

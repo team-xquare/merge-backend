@@ -4,6 +4,7 @@ import com.example.mergebackend.domain.deploy.entity.type.ServiceType
 import com.example.mergebackend.domain.deploy.entity.vo.DeployStatus
 import com.example.mergebackend.domain.deploy.entity.vo.UseDatabase
 import com.example.mergebackend.domain.project.entity.Project
+import org.apache.commons.lang3.mutable.Mutable
 import java.util.UUID
 import javax.persistence.*
 
@@ -19,7 +20,7 @@ class Deploy(
     deployStatus: DeployStatus,
     containerName: String,
     githubUrl: String,
-    deployUrl: Map<String,String>? = null,
+    deployUrl: MutableMap<String,String>? = null,
     lastDeploy: String? = null
 ) {
     @Id
@@ -65,14 +66,14 @@ class Deploy(
         protected set
 
     @ElementCollection
-    var deployUrl: Map<String,String>? = deployUrl
+    var deployUrl: MutableMap<String,String>? = deployUrl
         protected set
 
-    @Column(name = "last_deploy", nullable = false)
+    @Column(name = "last_deploy", nullable = true)
     var lastDeploy: String? = lastDeploy
         protected set
 
-    fun updateDeployUrl(deployUrl: Map<String, String>?){
+    fun updateDeployUrl(deployUrl: MutableMap<String, String>?){
         this.deployUrl = deployUrl
     }
 }
