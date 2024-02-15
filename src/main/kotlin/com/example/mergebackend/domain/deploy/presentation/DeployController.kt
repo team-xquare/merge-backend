@@ -53,13 +53,15 @@ class DeployController(
         domain: String?
     ) {
 
-        val domainMap = domain?.let { it ->
-            val decodedDomain = Base64.getDecoder().decode(it)
-            String(decodedDomain, Charset.defaultCharset()).lines().associate {
+        if(domain != null && domain.isNotEmpty()) {
+            val decodedDomain = Base64.getDecoder().decode(domain)
+            val domainMap = String(decodedDomain, Charset.defaultCharset()).lines().associate {
                 val (key, value) = it.split(":").map { it.trim() }
                 key to value
             }
+            deployService.updateUrl(containerName, serviceType, prefix, domainMap)
+        } else {
+            deployService.updateUrl(containerName, serviceType, prefix, null)
         }
-        deployService.updateUrl(containerName, serviceType, prefix, domainMap)
     }
 }
