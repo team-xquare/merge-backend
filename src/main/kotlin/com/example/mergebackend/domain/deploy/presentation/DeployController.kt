@@ -46,13 +46,15 @@ class DeployController(
         @RequestParam(value = "service_type", required = true)
         serviceType: ServiceType,
         @RequestParam(value = "prefix", required = false)
-        prefix: String,
+        prefix: String?,
         @RequestParam(value = "domain", required = false)
-        domain: String
+        domain: String?
     ) {
-        val domainMap = domain.lines().associate {
+        val domainMap = domain?.let { it ->
+            it.lines().associate {
             val (key, value) = it.split(":").map { it.trim() }
             key to value
+        }
         }
         deployService.updateUrl(containerName, serviceType, prefix, domainMap)
     }
