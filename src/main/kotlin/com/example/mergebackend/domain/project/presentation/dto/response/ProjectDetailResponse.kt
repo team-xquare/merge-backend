@@ -17,5 +17,6 @@ data class ProjectDetailResponse(
         val webUrl: String?,
         val projectImage: List<String>?,
         val isManagedByMe: Boolean,
-        val date: LocalDate
+        val date: LocalDate,
+        val isHidden: Boolean
 )

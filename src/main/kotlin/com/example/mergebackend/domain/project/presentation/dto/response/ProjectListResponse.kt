@@ -8,5 +8,6 @@ data class ProjectListResponse(
         val projectNameKo: String,
         val teamNameEn: String,
         val logo: String,
-        val date: LocalDate
+        val date: LocalDate,
+        val isHidden: Boolean
 )

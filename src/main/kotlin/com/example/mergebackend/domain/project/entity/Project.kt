@@ -96,7 +96,8 @@ class Project(
         playStoreUrl = this.playStoreUrl,
         projectImage = this.projectImage,
         isManagedByMe = (user == this.user),
-        date = this.date
+        date = this.date,
+        isHidden = this.isHidden
     )
 
     fun toListResponse() = ProjectListResponse(
@@ -104,6 +105,7 @@ class Project(
         this.projectNameKo,
         this.teamNameEn,
         this.logo,
-        this.date
+        this.date,
+        isHidden = this.isHidden
     )
 }
