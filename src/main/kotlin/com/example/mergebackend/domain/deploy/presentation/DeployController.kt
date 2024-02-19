@@ -52,7 +52,6 @@ class DeployController(
         @RequestParam(value = "domain", required = false)
         domain: String?
     ) {
-
         if(domain != null && domain.isNotEmpty()) {
             val decodedDomain = Base64.getDecoder().decode(domain)
             val domainMap = String(decodedDomain, Charset.defaultCharset()).lines().associate {
