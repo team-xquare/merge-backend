@@ -39,4 +39,9 @@ class AuthController(
             @RequestBody @Valid
             request: ReissueRequest
     ): TokenResponse = authService.reissue(request)
+
+    @GetMapping("/duplicate")
+    fun duplicateAccountId(
+        @RequestParam("accountId") accountId: String
+    ): Boolean = authService.duplicate(accountId)
 }

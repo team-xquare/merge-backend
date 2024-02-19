@@ -9,4 +9,6 @@ interface AuthService {
     fun login(req: LoginRequest): TokenResponse
     fun signup(req: SignUpRequest)
     fun reissue(req: ReissueRequest): TokenResponse
+
+    fun duplicate(accountId: String): Boolean
 }

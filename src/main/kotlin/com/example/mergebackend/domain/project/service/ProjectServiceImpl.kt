@@ -33,7 +33,7 @@ class ProjectServiceImpl (
     override fun register(req: RegisterProjectRequest, logo: MultipartFile, projectImage: List<MultipartFile>?): ProjectDetailResponse {
         val user = userFacade.getCurrentUser()
 
-        val logoUrl = logo?.let { fileService.upload(it, req.projectNameEn).url } ?: ""
+        val logoUrl = logo.let { fileService.upload(it, req.projectNameEn).url } ?: ""
         val projectImageUrls = projectImage?.let {
             fileService.uploads(it, req.projectNameEn).files.map { fileResponse -> fileResponse.url }
         } ?: emptyList()
