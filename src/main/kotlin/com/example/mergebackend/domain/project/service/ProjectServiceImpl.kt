@@ -63,7 +63,7 @@ class ProjectServiceImpl (
         paths.forEach { path ->
             vaultUtil.addSecret(mapOf("initKey" to "initValue"), path)
         }
-        return project.toResponse()
+        return project.toResponse(user)
     }
 
 
@@ -89,7 +89,7 @@ class ProjectServiceImpl (
                 req.playStoreUrl,
                 req.appStoreUrl,
                 project.projectImage
-        )).toResponse()
+        )).toResponse(user)
     }
 
     @Transactional
@@ -98,7 +98,9 @@ class ProjectServiceImpl (
         val project = projectRepository.findByIdOrNull(id)
                 ?: throw ProjectNotFoundException
 
-        return project.toResponse()
+        val user = userFacade.getCurrentUser()
+
+        return project.toResponse(user)
     }
 
     @Transactional

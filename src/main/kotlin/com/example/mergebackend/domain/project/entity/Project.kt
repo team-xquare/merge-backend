@@ -77,19 +77,20 @@ class Project(
     @Column(name = "isHidden", columnDefinition = "BIT", nullable = false)
     var isHidden: Boolean = false
 
-    fun toResponse() = ProjectDetailResponse(
-            this.id!!,
-            this.logo,
-            this.user.studentName,
-            this.projectNameKo,
-            this.projectNameEn,
-            this.teamNameEn,
-            this.description,
-            this.githubUrl,
-            this.webUrl,
-            this.appStoreUrl,
-            this.playStoreUrl,
-            this.projectImage
+    fun toResponse(user: User) = ProjectDetailResponse(
+        this.id!!,
+        this.logo,
+        this.user.studentName,
+        this.projectNameKo,
+        this.projectNameEn,
+        this.teamNameEn,
+        this.description,
+        this.githubUrl,
+        this.webUrl,
+        this.appStoreUrl,
+        this.playStoreUrl,
+        this.projectImage,
+        isManagedByMe = (user == this.user)
     )
 
     fun toListResponse() = ProjectListResponse(

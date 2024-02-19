@@ -14,5 +14,6 @@ data class ProjectDetailResponse(
         val playStoreUrl: String?,
         val githubUrl: String?,
         val webUrl: String?,
-        val projectImage: List<String>?
+        val projectImage: List<String>?,
+        val isManagedByMe: Boolean
 )
