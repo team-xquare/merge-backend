@@ -78,18 +78,18 @@ class Project(
     var isHidden: Boolean = false
 
     fun toResponse(user: User) = ProjectDetailResponse(
-        this.id!!,
-        this.logo,
-        this.user.studentName,
-        this.projectNameKo,
-        this.projectNameEn,
-        this.teamNameEn,
-        this.description,
-        this.githubUrl,
-        this.webUrl,
-        this.appStoreUrl,
-        this.playStoreUrl,
-        this.projectImage,
+        id = this.id!!,
+        logo = this.logo,
+        studentName = this.user.studentName,
+        projectNameKo = this.projectNameKo,
+        projectNameEn = this.projectNameEn,
+        teamNameEn = this.teamNameEn,
+        description = this.description,
+        githubUrl = this.githubUrl,
+        webUrl = this.webUrl,
+        appStoreUrl = this.appStoreUrl,
+        playStoreUrl = this.playStoreUrl,
+        projectImage = this.projectImage,
         isManagedByMe = (user == this.user)
     )
 
