@@ -1,9 +1,11 @@
 package com.example.mergebackend.domain.deploy.presentation
 
+import com.example.mergebackend.domain.deploy.entity.type.EnvType
 import com.example.mergebackend.domain.deploy.entity.type.ServiceType
 import com.example.mergebackend.domain.deploy.presentation.dto.request.CreateDeployRequest
 import com.example.mergebackend.domain.deploy.presentation.dto.response.CreateDeployResponse
 import com.example.mergebackend.domain.deploy.presentation.dto.response.DeployListResponse
+import com.example.mergebackend.domain.deploy.presentation.dto.response.DeployLogResponse
 import com.example.mergebackend.domain.deploy.service.DeployService
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
@@ -71,4 +73,12 @@ class DeployController(
         @RequestParam("project_id")
         projectId: UUID
     ): DeployListResponse = deployService.getDeployList(projectId)
+
+    @GetMapping("/logs")
+    fun getLogs(
+        @RequestParam("deploy_id")
+        deployId: UUID,
+        @RequestParam("env_type")
+        envType: EnvType
+    ): DeployLogResponse = deployService.getLogs(deployId, envType)
 }

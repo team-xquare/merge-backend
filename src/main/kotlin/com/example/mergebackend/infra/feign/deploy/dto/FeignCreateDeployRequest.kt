@@ -1,4 +1,4 @@
-package com.example.mergebackend.infra.deploy.dto
+package com.example.mergebackend.infra.feign.deploy.dto
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
