@@ -17,6 +17,7 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.multipart.MultipartFile
+import java.time.LocalDate
 import java.util.*
 
 @Service
@@ -39,18 +40,19 @@ class ProjectServiceImpl (
         } ?: emptyList()
 
         val project = Project(
-                null,
-                user,
-                logoUrl,
-                req.projectNameKo,
-                req.projectNameEn,
-                req.teamNameEn,
-                req.description,
-                req.githubUrl,
-                req.webUrl,
-                req.playStoreUrl,
-                req.appStoreUrl,
-                projectImageUrls
+            null,
+            user,
+            logoUrl,
+            req.projectNameKo,
+            req.projectNameEn,
+            req.teamNameEn,
+            req.description,
+            req.githubUrl,
+            req.webUrl,
+            req.playStoreUrl,
+            req.appStoreUrl,
+            projectImageUrls,
+            date = LocalDate.now()
         )
 
         projectRepository.save(project)
@@ -77,18 +79,19 @@ class ProjectServiceImpl (
         val logoUrl = fileService.upload(logo, project.projectNameEn).url
 
         return projectRepository.save(Project(
-                projectId,
-                user,
-                logoUrl,
-                project.projectNameKo,
-                project.projectNameEn,
-                project.teamNameEn,
-                req.description,
-                req.githubUrl,
-                req.webUrl,
-                req.playStoreUrl,
-                req.appStoreUrl,
-                project.projectImage
+            projectId,
+            user,
+            logoUrl,
+            project.projectNameKo,
+            project.projectNameEn,
+            project.teamNameEn,
+            req.description,
+            req.githubUrl,
+            req.webUrl,
+            req.playStoreUrl,
+            req.appStoreUrl,
+            project.projectImage,
+            project.date
         )).toResponse(user)
     }
 

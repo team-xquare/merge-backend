@@ -4,24 +4,26 @@ import com.example.mergebackend.domain.project.presentation.dto.response.Project
 import com.example.mergebackend.domain.project.presentation.dto.response.ProjectListResponse
 import com.example.mergebackend.domain.user.entity.User
 import org.hibernate.annotations.DynamicUpdate
+import java.time.LocalDate
 import java.util.*
 import javax.persistence.*
 
 @Entity(name = "project")
 @DynamicUpdate
 class Project(
-        id: UUID? = null,
-        user: User,
-        logo: String,
-        projectNameKo: String,
-        projectNameEn: String,
-        teamNameEn: String,
-        description: String,
-        githubUrl: String?,
-        webUrl: String?,
-        playStoreUrl: String?,
-        appStoreUrl: String?,
-        projectImage: List<String>?
+    id: UUID? = null,
+    user: User,
+    logo: String,
+    projectNameKo: String,
+    projectNameEn: String,
+    teamNameEn: String,
+    description: String,
+    githubUrl: String?,
+    webUrl: String?,
+    playStoreUrl: String?,
+    appStoreUrl: String?,
+    projectImage: List<String>?,
+    date: LocalDate
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -77,6 +79,9 @@ class Project(
     @Column(name = "isHidden", columnDefinition = "BIT", nullable = false)
     var isHidden: Boolean = false
 
+    @Column(name = "date", columnDefinition = "DATE", nullable = false)
+    var date: LocalDate = date
+
     fun toResponse(user: User) = ProjectDetailResponse(
         id = this.id!!,
         logo = this.logo,
@@ -90,7 +95,8 @@ class Project(
         appStoreUrl = this.appStoreUrl,
         playStoreUrl = this.playStoreUrl,
         projectImage = this.projectImage,
-        isManagedByMe = (user == this.user)
+        isManagedByMe = (user == this.user),
+        date = this.date
     )
 
     fun toListResponse() = ProjectListResponse(

@@ -1,5 +1,6 @@
 package com.example.mergebackend.domain.project.presentation.dto.response
 
+import java.time.LocalDate
 import java.util.*
 
 data class ProjectDetailResponse(
@@ -15,5 +16,6 @@ data class ProjectDetailResponse(
         val githubUrl: String?,
         val webUrl: String?,
         val projectImage: List<String>?,
-        val isManagedByMe: Boolean
+        val isManagedByMe: Boolean,
+        val date: LocalDate
 )
