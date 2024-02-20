@@ -81,4 +81,10 @@ class DeployController(
         @RequestParam("env_type")
         envType: EnvType
     ): DeployLogResponse = deployService.getLogs(deployId, envType)
+
+    @GetMapping("/status")
+    fun getPodStatus(
+        @RequestParam("deploy_id")
+        deployId: UUID
+    ) = deployService.checkPodStatus(deployId)
 }

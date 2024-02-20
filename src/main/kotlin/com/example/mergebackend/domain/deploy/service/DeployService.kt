@@ -16,4 +16,5 @@ interface DeployService {
     fun getDeployList(projectId: UUID): DeployListResponse
     fun updateUrl(containerName: String, serviceType: ServiceType, prefix: String?, domain: Map<String,String>?)
     fun getLogs(deployId: UUID, envType: EnvType): DeployLogResponse
+    fun checkPodStatus(deployId: UUID): Map<String, String>
 }

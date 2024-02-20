@@ -22,14 +22,12 @@ import com.example.mergebackend.infra.feign.deploy.dto.FeignCreateDeployRequest
 import com.example.mergebackend.infra.feign.tsdata.TsDataClient
 import com.example.mergebackend.infra.feign.tsdata.dto.GetLogRequest
 import com.example.mergebackend.infra.feign.tsdata.dto.QueryDto
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+import com.example.mergebackend.infra.kubernetes.KubernetesClientUtil
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.Instant
 import java.util.*
-import javax.management.Query
 
 @Transactional
 @Service
@@ -38,7 +36,8 @@ private class DeployServiceImpl(
     private val projectRepository: ProjectRepository,
     private val deployClient: DeployClient,
     private val userFacade: UserFacade,
-    private val tsDataClient: TsDataClient
+    private val tsDataClient: TsDataClient,
+    private val kubernetesClientUtil: KubernetesClientUtil
 ): DeployService {
     override fun createDeploy(createDeployRequest: CreateDeployRequest): CreateDeployResponse {
         val project = projectRepository.findByIdOrNull(createDeployRequest.projectId) ?: throw ProjectNotFoundException
@@ -147,5 +146,20 @@ private class DeployServiceImpl(
 
         return DeployLogResponse(response.results.a.frames[0].data.values[2])
 
+    }
+
+    override fun checkPodStatus(deployId: UUID): Map<String, String> {
+        val deploy = deployRepository.findByIdOrNull(deployId) ?: throw DeployNotFoundException
+
+        val namespacePrefix = "${deploy.project.teamNameEn}-"
+        val deployPrefix = "${deploy.containerName}-${deploy.serviceType.toString().lowercase()}-"
+
+        val stagStatus = kubernetesClientUtil.checkContainerStatus(namespace = "${namespacePrefix}stag", deploymentName = "${deployPrefix}stag")
+        val prodStatus = kubernetesClientUtil.checkContainerStatus(namespace = "${namespacePrefix}prod", deploymentName = "${deployPrefix}prod")
+
+        return mapOf(
+            "stag" to stagStatus,
+            "prod" to prodStatus
+        )
     }
 }

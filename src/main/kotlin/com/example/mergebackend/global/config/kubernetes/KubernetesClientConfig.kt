@@ -1,19 +1,14 @@
 package com.example.mergebackend.global.config.kubernetes
 
-import com.example.mergebackend.global.config.kubernetes.dto.KubernetesToken
 import com.example.mergebackend.global.env.kubernetes.KubernetesProperty
 import com.example.mergebackend.global.env.kubernetes.XquareAwsProperty
-import com.example.mergebackend.infra.kubernetes.exception.KubernetesException
 import io.kubernetes.client.openapi.Configuration
+import io.kubernetes.client.openapi.apis.CoreV1Api
 import io.kubernetes.client.openapi.apis.CustomObjectsApi
 import io.kubernetes.client.util.ClientBuilder
 import io.kubernetes.client.util.KubeConfig
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 import org.springframework.context.annotation.Bean
 import software.amazon.awssdk.regions.Region
-import java.io.BufferedReader
-import java.io.InputStreamReader
 import java.io.StringReader
 import java.nio.charset.Charset
 import java.util.*
@@ -55,4 +50,7 @@ class KubernetesClientConfig(
 
     @Bean
     fun customObjectsApi() = CustomObjectsApi()
+
+    @Bean
+    fun coreV1API() = CoreV1Api()
 }
