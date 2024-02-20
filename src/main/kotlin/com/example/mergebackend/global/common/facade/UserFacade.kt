@@ -12,4 +12,7 @@ class UserFacade(
 ) {
     fun getCurrentUser(): User = userRepository.findByAccountId(SecurityContextHolder.getContext().authentication.name)
                 ?: throw InvalidTokenException
+
+    fun getCurrentUserOrNull(): User? = userRepository.findByAccountId(SecurityContextHolder.getContext().authentication.name)
+
 }

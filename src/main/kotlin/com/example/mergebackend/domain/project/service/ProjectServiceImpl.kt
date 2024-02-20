@@ -101,7 +101,7 @@ class ProjectServiceImpl (
         val project = projectRepository.findByIdOrNull(id)
                 ?: throw ProjectNotFoundException
 
-        val user = userFacade.getCurrentUser()
+        val user = userFacade.getCurrentUserOrNull()
 
         return project.toResponse(user)
     }

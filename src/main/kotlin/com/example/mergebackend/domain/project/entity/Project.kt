@@ -82,7 +82,7 @@ class Project(
     @Column(name = "date", columnDefinition = "DATE", nullable = false)
     var date: LocalDate = date
 
-    fun toResponse(user: User) = ProjectDetailResponse(
+    fun toResponse(user: User?) = ProjectDetailResponse(
         id = this.id!!,
         logo = this.logo,
         studentName = this.user.studentName,
