@@ -40,6 +40,7 @@ class SecurityConfig(
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
+                .antMatchers(HttpMethod.GET, "/auth/duplicate").permitAll()
                 .antMatchers(HttpMethod.PUT, "/deploy/config").permitAll()
                 .anyRequest().authenticated()
                 .and()
