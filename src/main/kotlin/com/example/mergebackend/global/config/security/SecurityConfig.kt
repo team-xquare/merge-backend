@@ -42,6 +42,8 @@ class SecurityConfig(
                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
                 .antMatchers(HttpMethod.GET, "/auth/duplicate").permitAll()
                 .antMatchers(HttpMethod.PUT, "/deploy/config").permitAll()
+                .antMatchers(HttpMethod.GET, "project/list").permitAll()
+                .antMatchers(HttpMethod.GET, "project/detail").permitAll()
                 .anyRequest().authenticated()
                 .and()
 
