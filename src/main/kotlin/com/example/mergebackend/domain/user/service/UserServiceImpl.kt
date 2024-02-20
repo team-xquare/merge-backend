@@ -20,7 +20,7 @@ class UserServiceImpl(
     override fun updateProfile(req: UpdateProfileRequest): UserProfileResponse {
         val currentUser = userFacade.getCurrentUser()
 
-        req.github?.let {
+        req.github.let {
             currentUser.updateGithub(it)
         }
 
