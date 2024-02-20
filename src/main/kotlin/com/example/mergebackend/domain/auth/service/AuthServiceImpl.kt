@@ -53,9 +53,6 @@ class AuthServiceImpl(
     override fun duplicate(accountId: String): Boolean {
         val duplicateAccountId = userRepository.findByAccountId(accountId)
 
-        if (duplicateAccountId != null) {
-            throw AlreadySignupException
-        }
-        return false
+        return duplicateAccountId != null
     }
 }

@@ -129,10 +129,7 @@ class ProjectServiceImpl (
     override fun duplicate(projectNamEn: String): Boolean {
         val duplicateProject = projectRepository.findByProjectNameEn(projectNamEn)
 
-        if (duplicateProject != null) {
-            throw AlreadyExistException
-        }
-        return false
+        return duplicateProject != null
     }
 
     @Transactional
