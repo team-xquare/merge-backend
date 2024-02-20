@@ -56,6 +56,6 @@ class KubernetesClientUtilImpl(
         } catch (e: ApiException) {
             e.printStackTrace()
         }
-        return "d"
+        return "배포되지 않았습니다."
     }
 }
