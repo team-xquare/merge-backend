@@ -69,3 +69,4 @@ kubernetes:
 url:
   deploy: ${DEPLOY_URL}
   tsdata: ${TSDATA_URL}
+  oauth: ${OAUTH_URL}
