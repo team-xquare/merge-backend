@@ -1,5 +1,6 @@
-package com.example.mergebackend.infra.feign.oauth.dto
+package com.example.mergebackend.infra.feign.oauth.dto.response
 
+import com.example.mergebackend.infra.feign.oauth.dto.UserRole
 import java.time.LocalDate
 import java.util.*
 
