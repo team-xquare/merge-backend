@@ -39,10 +39,11 @@ class ProjectController(
     fun update(
             @PathVariable("projectId") projectId: UUID,
             @RequestPart(value = "logo", required = true) logo: MultipartFile,
-            @RequestPart("project") project: String
+            @RequestPart("project") project: String,
+            @RequestPart("projectImages") projectImages: List<MultipartFile>?
     ): ProjectDetailResponse {
         val request: UpdateProjectRequest = objectMapper.readValue(project, UpdateProjectRequest::class.java)
-        return projectService.update(projectId, request, logo)
+        return projectService.update(projectId, request, logo, projectImages)
     }
 
     @GetMapping("/detail")
