@@ -75,14 +75,10 @@ class FileServiceImpl(
     }
 
     override fun uploads(file: List<MultipartFile>, projectNameEn: String): FileUrlListResponse {
-        val fileUrlResponses = file.map {
-            println("Uploading file: ${it.name}")
-            val result = uploadFile(it, projectNameEn)
-            println("Uploaded file: ${it.name}, URL: ${result.url}")
-            result
-        }
         return FileUrlListResponse(
-            files = fileUrlResponses.toMutableList()
+            file.map {
+                uploadFile(it, projectNameEn)
+            }.toMutableList()
         )
     }
 
