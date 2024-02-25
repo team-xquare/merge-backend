@@ -70,7 +70,7 @@ class ProjectServiceImpl (
 
 
     @Transactional
-    override fun update(projectId: UUID, req: UpdateProjectRequest, logo: MultipartFile, projectImages: List<MultipartFile>?): ProjectDetailResponse {
+    override fun update(projectId: UUID, req: UpdateProjectRequest, logo: MultipartFile, projectImage: List<MultipartFile>?): ProjectDetailResponse {
 
         val user = userFacade.getCurrentUser()
         val project = projectRepository.findByIdOrNull(projectId)
@@ -78,7 +78,7 @@ class ProjectServiceImpl (
 
         val logoUrl = fileService.upload(logo, project.projectNameEn).url
 
-        val projectImageUrl = projectImages?.let {
+        val projectImageUrl = projectImage?.let {
             fileService.uploads(it, project.projectNameEn).files.map {fileUrlResponse -> fileUrlResponse.url }
         } ?: project.projectImage
 
