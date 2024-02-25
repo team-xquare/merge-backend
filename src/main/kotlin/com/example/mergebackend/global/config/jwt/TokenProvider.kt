@@ -83,7 +83,7 @@ class TokenProvider(
 
     fun reissue(token: String): TokenResponse {
         val refreshToken = refreshTokenRepository.findByIdOrNull(token)
-                ?: throw InvalidTokenException
+                    ?: throw InvalidTokenException
 
         return receiveToken(refreshToken.accountId)
     }
