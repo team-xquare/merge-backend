@@ -75,18 +75,17 @@ class FileServiceImpl(
     }
 
     override fun uploads(file: List<MultipartFile>, projectNameEn: String): FileUrlListResponse {
-
-        val fileUrlResponses = file.mapNotNull {
-            try {
-                uploadFile(it, projectNameEn)
-            } catch (e: Exception) {
-                null
-            }
+        val fileUrlResponses = file.map {
+            println("Uploading file: ${it.name}")
+            val result = uploadFile(it, projectNameEn)
+            println("Uploaded file: ${it.name}, URL: ${result.url}")
+            result
         }
         return FileUrlListResponse(
             files = fileUrlResponses.toMutableList()
         )
     }
+
 
     override fun delete(fileName: String, projectNameEn: String) {
         val fileKey = s3Property.dir + "$projectNameEn/" + fileName
