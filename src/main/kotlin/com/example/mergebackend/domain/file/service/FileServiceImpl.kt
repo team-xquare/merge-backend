@@ -2,6 +2,7 @@ package com.example.mergebackend.domain.file.service
 
 import com.amazonaws.AmazonServiceException
 import com.amazonaws.services.s3.AmazonS3Client
+import com.amazonaws.services.s3.model.GetObjectRequest
 import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.PutObjectRequest
 import com.amazonaws.util.IOUtils
@@ -11,6 +12,8 @@ import com.example.mergebackend.domain.file.exception.InvalidFileExtension
 import com.example.mergebackend.domain.file.presentation.dto.FileUrlListResponse
 import com.example.mergebackend.domain.file.presentation.dto.FileUrlResponse
 import com.example.mergebackend.global.env.s3.S3Property
+import org.springframework.core.io.InputStreamResource
+import org.springframework.core.io.Resource
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.multipart.MultipartFile
@@ -73,10 +76,15 @@ class FileServiceImpl(
 
     override fun uploads(file: List<MultipartFile>, projectNameEn: String): FileUrlListResponse {
 
+        val fileUrlResponses = file.mapNotNull {
+            try {
+                uploadFile(it, projectNameEn)
+            } catch (e: Exception) {
+                null
+            }
+        }
         return FileUrlListResponse(
-                file.map {
-                    uploadFile(it, projectNameEn)
-                }.toMutableList()
+            files = fileUrlResponses.toMutableList()
         )
     }
 
@@ -89,4 +97,10 @@ class FileServiceImpl(
             throw ImageDeleteFailException
         }
     }
+
+//    override fun download(projectNameEn: String, fileName: String): Resource {
+//        val fileKey = s3Property.dir + "$projectNameEn/" + fileName
+//        val s3Object = s3Client.getObject(GetObjectRequest(s3Property.bucket, fileKey))
+//        return InputStreamResource(s3Object.objectContent)
+//    }
 }
