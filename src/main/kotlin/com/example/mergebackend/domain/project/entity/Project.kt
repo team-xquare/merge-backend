@@ -14,7 +14,7 @@ class Project(
     id: UUID? = null,
     user: User,
     logo: String,
-    projectNameKo: String,
+    projectName: String,
     projectNameEn: String,
     teamNameEn: String,
     description: String,
@@ -40,8 +40,8 @@ class Project(
     var logo: String = logo
         protected set
 
-    @Column(name = "projectNameKo", columnDefinition = "VARCHAR(100)", nullable = false)
-    var projectNameKo: String = projectNameKo
+    @Column(name = "projectName", columnDefinition = "VARCHAR(100)", nullable = false)
+    var projectName: String = projectName
         protected set
 
     @Column(name = "projectNameEn", columnDefinition = "VARCHAR(100)", nullable = false)
@@ -86,7 +86,7 @@ class Project(
         id = this.id!!,
         logo = this.logo,
         studentName = this.user.studentName,
-        projectNameKo = this.projectNameKo,
+        projectName = this.projectName,
         projectNameEn = this.projectNameEn,
         teamNameEn = this.teamNameEn,
         description = this.description,
@@ -102,7 +102,7 @@ class Project(
 
     fun toListResponse() = ProjectListResponse(
         this.id!!,
-        this.projectNameKo,
+        this.projectName,
         this.teamNameEn,
         this.logo,
         this.date,

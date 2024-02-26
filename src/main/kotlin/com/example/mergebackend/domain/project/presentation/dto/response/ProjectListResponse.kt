@@ -5,7 +5,7 @@ import java.util.*
 
 data class ProjectListResponse(
         val id: UUID,
-        val projectNameKo: String,
+        val projectName: String,
         val teamNameEn: String,
         val logo: String,
         val date: LocalDate,

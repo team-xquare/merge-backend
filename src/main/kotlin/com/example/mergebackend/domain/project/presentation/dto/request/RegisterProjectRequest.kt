@@ -6,7 +6,7 @@ import javax.validation.constraints.Pattern
 data class RegisterProjectRequest(
 
         @field:NotBlank(message = "null이 될 수 없습니다.")
-        val projectNameKo: String,
+        val projectName: String,
 
         @field:NotBlank(message = "null이 될 수 없습니다.")
         val projectNameEn: String,

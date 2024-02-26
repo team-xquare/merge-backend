@@ -66,7 +66,7 @@ private class DeployServiceImpl(
         deployClient.createDeploy(
             FeignCreateDeployRequest(
                 email = user.email,
-                nameKo = deploy.project.projectNameKo,
+                nameKo = deploy.project.projectName,
                 nameEn = deploy.containerName,
                 team = deploy.project.teamNameEn,
                 repository = DeployUtil.getRepository(deploy.githubUrl),

@@ -8,7 +8,7 @@ data class ProjectDetailResponse(
         val logo: String,
         val studentName: String,
         val teamNameEn: String,
-        val projectNameKo: String,
+        val projectName: String,
         val projectNameEn: String,
         val description: String,
         val appStoreUrl: String?,
