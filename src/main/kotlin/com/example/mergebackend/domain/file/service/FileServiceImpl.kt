@@ -92,10 +92,4 @@ class FileServiceImpl(
             throw ImageDeleteFailException
         }
     }
-
-//    override fun download(projectNameEn: String, fileName: String): Resource {
-//        val fileKey = s3Property.dir + "$projectNameEn/" + fileName
-//        val s3Object = s3Client.getObject(GetObjectRequest(s3Property.bucket, fileKey))
-//        return InputStreamResource(s3Object.objectContent)
-//    }
 }
