@@ -34,6 +34,12 @@ class ProjectServiceImpl (
     override fun register(req: RegisterProjectRequest, logo: MultipartFile, projectImage: List<MultipartFile>?): ProjectDetailResponse {
         val user = userFacade.getCurrentUser()
 
+        val duplicateProject = projectRepository.findByProjectNameEn(req.projectNameEn)
+
+        if (duplicateProject != null) {
+            throw AlreadyExistException
+        }
+
         val logoUrl = logo.let { fileService.upload(it, req.projectNameEn).url } ?: ""
         val projectImageUrls = projectImage?.let {
             if (it.isNotEmpty()) {
