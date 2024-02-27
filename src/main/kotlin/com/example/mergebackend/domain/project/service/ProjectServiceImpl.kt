@@ -36,8 +36,12 @@ class ProjectServiceImpl (
 
         val logoUrl = logo.let { fileService.upload(it, req.projectNameEn).url } ?: ""
         val projectImageUrls = projectImage?.let {
-            fileService.uploads(it, req.projectNameEn).files.map { fileResponse -> fileResponse.url }
-        } ?: emptyList()
+            if (it.isNotEmpty()) {
+                fileService.uploads(it, req.projectNameEn).files.map { fileResponse ->  fileResponse.url }
+            }else {
+                null
+            }
+        }
 
         val project = Project(
             null,
@@ -79,8 +83,12 @@ class ProjectServiceImpl (
         val logoUrl = fileService.upload(logo, project.projectNameEn).url
 
         val projectImageUrl = projectImage?.let {
-            fileService.uploads(it, project.projectNameEn).files.map {fileUrlResponse -> fileUrlResponse.url }
-        } ?: project.projectImage
+            if (it.isNotEmpty()) {
+                fileService.uploads(it, project.projectNameEn).files.map {fileUrlResponse -> fileUrlResponse.url }
+            } else {
+                project.projectImage
+            }
+        }
 
         return projectRepository.save(Project(
             projectId,
