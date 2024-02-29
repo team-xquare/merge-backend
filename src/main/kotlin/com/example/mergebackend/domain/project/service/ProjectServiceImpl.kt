@@ -12,7 +12,6 @@ import com.example.mergebackend.domain.project.repository.ProjectRepository
 import com.example.mergebackend.domain.user.exception.UserNotFoundException
 import com.example.mergebackend.domain.user.repository.UserRepository
 import com.example.mergebackend.global.common.facade.UserFacade
-import com.example.mergebackend.infra.vault.VaultUtil
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -26,8 +25,7 @@ class ProjectServiceImpl (
         private val projectRepository: ProjectRepository,
         private val userFacade: UserFacade,
         private val fileService: FileService,
-        private val userRepository: UserRepository,
-        private val vaultUtil: VaultUtil
+        private val userRepository: UserRepository
 ): ProjectService {
 
     @Transactional
@@ -67,14 +65,6 @@ class ProjectServiceImpl (
 
         projectRepository.save(project)
 
-        val paths = listOf(
-            "${project.projectNameEn}-be-stag",
-            "${project.projectNameEn}-be-prod"
-        )
-
-        paths.forEach { path ->
-            vaultUtil.addSecret(mapOf("initKey" to "initValue"), path)
-        }
         return project.toResponse(user)
     }
 
