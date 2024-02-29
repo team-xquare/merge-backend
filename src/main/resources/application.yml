@@ -55,18 +55,9 @@ cloud:
       secretKey: ${SECRET_KEY}
       region: ap-northeast-2
 
-vault:
-  address: ${VAULT_URL}
-  vaultToken: ${VAULT_TOKEN}
-
 xquare:
   accessKey: ${XQUARE_ACCESS}
   secretKey: ${XQUARE_SECRET}
 
-kubernetes:
-  kubeConfig: ${KUBE_CONFIG}
-
 url:
-  deploy: ${DEPLOY_URL}
-  tsdata: ${TSDATA_URL}
   oauth: ${OAUTH_URL}
