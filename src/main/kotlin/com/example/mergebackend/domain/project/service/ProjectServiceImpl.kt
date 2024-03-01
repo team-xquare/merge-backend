@@ -12,6 +12,8 @@ import com.example.mergebackend.domain.project.repository.ProjectRepository
 import com.example.mergebackend.domain.user.exception.UserNotFoundException
 import com.example.mergebackend.domain.user.repository.UserRepository
 import com.example.mergebackend.global.common.facade.UserFacade
+import com.example.mergebackend.infra.feign.oauth.OAuthClient
+import com.example.mergebackend.infra.feign.oauth.dto.request.RegisterClientRequest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -21,15 +23,20 @@ import java.util.*
 
 @Service
 @Transactional(readOnly = true)
-class ProjectServiceImpl (
-        private val projectRepository: ProjectRepository,
-        private val userFacade: UserFacade,
-        private val fileService: FileService,
-        private val userRepository: UserRepository
-): ProjectService {
+class ProjectServiceImpl(
+    private val projectRepository: ProjectRepository,
+    private val userFacade: UserFacade,
+    private val fileService: FileService,
+    private val userRepository: UserRepository,
+    private val oAuthClient: OAuthClient,
+    ) : ProjectService {
 
     @Transactional
-    override fun register(req: RegisterProjectRequest, logo: MultipartFile, projectImage: List<MultipartFile>?): ProjectDetailResponse {
+    override fun register(
+        req: RegisterProjectRequest,
+        logo: MultipartFile,
+        projectImage: List<MultipartFile>?
+    ): ProjectDetailResponse {
         val user = userFacade.getCurrentUser()
 
         val duplicateProject = projectRepository.findByProjectNameEn(req.projectNameEn)
@@ -41,8 +48,8 @@ class ProjectServiceImpl (
         val logoUrl = logo.let { fileService.upload(it, req.projectNameEn).url } ?: ""
         val projectImageUrls = projectImage?.let {
             if (it.isNotEmpty()) {
-                fileService.uploads(it, req.projectNameEn).files.map { fileResponse ->  fileResponse.url }
-            }else {
+                fileService.uploads(it, req.projectNameEn).files.map { fileResponse -> fileResponse.url }
+            } else {
                 null
             }
         }
@@ -65,49 +72,65 @@ class ProjectServiceImpl (
 
         projectRepository.save(project)
 
+        oAuthClient.registerClient(
+
+            request = RegisterClientRequest(
+                clientId = req.projectNameEn,
+                redirectUris = req.redirectUris ?: emptyList()
+            )
+        )
+
+
         return project.toResponse(user)
     }
 
 
     @Transactional
-    override fun update(projectId: UUID, req: UpdateProjectRequest, logo: MultipartFile, projectImage: List<MultipartFile>?): ProjectDetailResponse {
+    override fun update(
+        projectId: UUID,
+        req: UpdateProjectRequest,
+        logo: MultipartFile,
+        projectImage: List<MultipartFile>?
+    ): ProjectDetailResponse {
 
         val user = userFacade.getCurrentUser()
         val project = projectRepository.findByIdOrNull(projectId)
-                ?: throw ProjectNotFoundException
+            ?: throw ProjectNotFoundException
 
         val logoUrl = fileService.upload(logo, project.projectNameEn).url
 
         val projectImageUrl = projectImage?.let {
             if (it.isNotEmpty()) {
-                fileService.uploads(it, project.projectNameEn).files.map {fileUrlResponse -> fileUrlResponse.url }
+                fileService.uploads(it, project.projectNameEn).files.map { fileUrlResponse -> fileUrlResponse.url }
             } else {
                 project.projectImage
             }
         }
 
-        return projectRepository.save(Project(
-            projectId,
-            user,
-            logoUrl,
-            project.projectName,
-            project.projectNameEn,
-            project.teamNameEn,
-            req.description,
-            req.githubUrl,
-            req.webUrl,
-            req.playStoreUrl,
-            req.appStoreUrl,
-            projectImageUrl,
-            project.date
-        )).toResponse(user)
+        return projectRepository.save(
+            Project(
+                projectId,
+                user,
+                logoUrl,
+                project.projectName,
+                project.projectNameEn,
+                project.teamNameEn,
+                req.description,
+                req.githubUrl,
+                req.webUrl,
+                req.playStoreUrl,
+                req.appStoreUrl,
+                projectImageUrl,
+                project.date
+            )
+        ).toResponse(user)
     }
 
     @Transactional
     override fun getDetail(id: UUID): ProjectDetailResponse {
 
         val project = projectRepository.findByIdOrNull(id)
-                ?: throw ProjectNotFoundException
+            ?: throw ProjectNotFoundException
 
         val user = userFacade.getCurrentUserOrNull()
 
