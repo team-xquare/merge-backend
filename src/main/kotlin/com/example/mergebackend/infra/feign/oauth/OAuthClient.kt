@@ -12,27 +12,27 @@ import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 
-@FeignClient(
-    name = "oauthClient",
-    url = "\${BASE_URL}",
-    configuration = [FeignConfig::class]
-)
-interface OAuthClient {
-
-    @PostMapping("/oauth2/client")
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    fun registerClient(
-        @RequestHeader("")
-        @RequestBody request: RegisterClientRequest
-    ): RegisterClientResponse
-
-    @PatchMapping("/oauth2/client/{client-id}")
-    fun updateClient(
-        @PathVariable("client-id") clientId: String,
-        @RequestBody request: UpdateClientRequest
-    ): UpdateClientResponse
-
-    @GetMapping("/oauth2/client/{client-id}/secret")
-    fun regenerateSecret(@PathVariable("client-id") clientId: String): RegenerateSecretResponse
-
-}
+//@FeignClient(
+//    name = "oauthClient",
+//    url = "\${BASE_URL}",
+//    configuration = [FeignConfig::class]
+//)
+//interface OAuthClient {
+//
+//    @PostMapping("/oauth2/client")
+//    @Transactional(propagation = Propagation.REQUIRES_NEW)
+//    fun registerClient(
+//        @RequestHeader("")
+//        @RequestBody request: RegisterClientRequest
+//    ): RegisterClientResponse
+//
+//    @PatchMapping("/oauth2/client/{client-id}")
+//    fun updateClient(
+//        @PathVariable("client-id") clientId: String,
+//        @RequestBody request: UpdateClientRequest
+//    ): UpdateClientResponse
+//
+//    @GetMapping("/oauth2/client/{client-id}/secret")
+//    fun regenerateSecret(@PathVariable("client-id") clientId: String): RegenerateSecretResponse
+//
+//}

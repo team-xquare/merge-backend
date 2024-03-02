@@ -12,7 +12,7 @@ import com.example.mergebackend.domain.project.repository.ProjectRepository
 import com.example.mergebackend.domain.user.exception.UserNotFoundException
 import com.example.mergebackend.domain.user.repository.UserRepository
 import com.example.mergebackend.global.common.facade.UserFacade
-import com.example.mergebackend.infra.feign.oauth.OAuthClient
+//import com.example.mergebackend.infra.feign.oauth.OAuthClient
 import com.example.mergebackend.infra.feign.oauth.dto.request.RegisterClientRequest
 import com.example.mergebackend.infra.feign.oauth.dto.request.UpdateClientRequest
 import com.example.mergebackend.infra.feign.oauth.dto.response.RegenerateSecretResponse
@@ -32,7 +32,7 @@ class ProjectServiceImpl(
     private val userFacade: UserFacade,
     private val fileService: FileService,
     private val userRepository: UserRepository,
-    private val oAuthClient: OAuthClient
+//    private val oAuthClient: OAuthClient
 ) : ProjectService {
 
     @Transactional
@@ -174,24 +174,24 @@ class ProjectServiceImpl(
 
         project.isHidden = false
     }
-
-    @Transactional
-    override fun registerClient(req: RegisterClientRequest): RegisterClientResponse {
-        return oAuthClient.registerClient(
-            request = RegisterClientRequest(
-                clientId = req.clientId,
-                redirectUris = req.redirectUris ?: emptyList()
-            )
-        )
-    }
-
-    @Transactional
-    override fun updateClient(clientId: String, req: UpdateClientRequest): UpdateClientResponse {
-        return oAuthClient.updateClient(clientId, req)
-    }
-
-    @Transactional
-    override fun regenerateSecret(clientId: String): RegenerateSecretResponse {
-        return oAuthClient.regenerateSecret(clientId)
-    }
+//
+//    @Transactional
+//    override fun registerClient(req: RegisterClientRequest): RegisterClientResponse {
+//        return oAuthClient.registerClient(
+//            request = RegisterClientRequest(
+//                clientId = req.clientId,
+//                redirectUris = req.redirectUris ?: emptyList()
+//            )
+//        )
+//    }
+//
+//    @Transactional
+//    override fun updateClient(clientId: String, req: UpdateClientRequest): UpdateClientResponse {
+//        return oAuthClient.updateClient(clientId, req)
+//    }
+//
+//    @Transactional
+//    override fun regenerateSecret(clientId: String): RegenerateSecretResponse {
+//        return oAuthClient.regenerateSecret(clientId)
+//    }
 }

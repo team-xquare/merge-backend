@@ -22,8 +22,8 @@ interface ProjectService {
     fun duplicate(projectNamEn: String): Boolean
     fun hide(projectId: UUID)
     fun unhide(projectId: UUID)
-    fun registerClient(req: RegisterClientRequest): RegisterClientResponse
-    fun updateClient(clientId: String, req: UpdateClientRequest): UpdateClientResponse
-    fun regenerateSecret(clientId: String): RegenerateSecretResponse
+//    fun registerClient(req: RegisterClientRequest): RegisterClientResponse
+//    fun updateClient(clientId: String, req: UpdateClientRequest): UpdateClientResponse
+//    fun regenerateSecret(clientId: String): RegenerateSecretResponse
 
 }
