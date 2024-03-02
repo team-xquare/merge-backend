@@ -1,12 +1,10 @@
 package com.example.mergebackend.domain.auth.service
 
-import com.example.mergebackend.domain.auth.exception.AlreadySignupException
 import com.example.mergebackend.domain.auth.exception.PasswordNotMatchedException
 import com.example.mergebackend.domain.auth.presentation.dto.request.LoginRequest
 import com.example.mergebackend.domain.auth.presentation.dto.request.ReissueRequest
 import com.example.mergebackend.domain.auth.presentation.dto.request.SignUpRequest
 import com.example.mergebackend.domain.auth.presentation.dto.response.TokenResponse
-import com.example.mergebackend.domain.project.exception.AlreadyExistException
 import com.example.mergebackend.domain.user.entity.User
 import com.example.mergebackend.domain.user.exception.UserNotFoundException
 import com.example.mergebackend.domain.user.repository.UserRepository
