@@ -43,6 +43,7 @@ jwt:
 server:
   servlet:
     context-path: /merge
+    port: 8082
 logging:
   level:
     root: info
@@ -60,4 +61,5 @@ xquare:
   secretKey: ${XQUARE_SECRET}
 
 url:
-  oauth: ${OAUTH_URL}
+  oauth: ${BASE_URL}
+
