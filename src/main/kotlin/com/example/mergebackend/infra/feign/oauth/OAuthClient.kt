@@ -19,20 +19,20 @@ import org.springframework.web.bind.annotation.*
 )
 interface OAuthClient {
 
-    @PostMapping("/client")
+    @PostMapping("/oauth2/client")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     fun registerClient(
         @RequestHeader("")
         @RequestBody request: RegisterClientRequest
     ): RegisterClientResponse
 
-    @PatchMapping("/client/{client-id}")
+    @PatchMapping("/oauth2/client/{client-id}")
     fun updateClient(
         @PathVariable("client-id") clientId: String,
         @RequestBody request: UpdateClientRequest
     ): UpdateClientResponse
 
-    @GetMapping("/client/{client-id}/secret")
+    @GetMapping("/oauth2/client/{client-id}/secret")
     fun regenerateSecret(@PathVariable("client-id") clientId: String): RegenerateSecretResponse
 
 }
