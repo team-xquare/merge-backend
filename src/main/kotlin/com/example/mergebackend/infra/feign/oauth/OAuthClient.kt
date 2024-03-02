@@ -19,9 +19,6 @@ import org.springframework.web.bind.annotation.*
 )
 interface OAuthClient {
 
-    @GetMapping("/client")
-    fun getClient(): ClientsResponse
-
     @PostMapping("/client")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     fun registerClient(
