@@ -14,6 +14,10 @@ import com.example.mergebackend.domain.user.repository.UserRepository
 import com.example.mergebackend.global.common.facade.UserFacade
 import com.example.mergebackend.infra.feign.oauth.OAuthClient
 import com.example.mergebackend.infra.feign.oauth.dto.request.RegisterClientRequest
+import com.example.mergebackend.infra.feign.oauth.dto.request.UpdateClientRequest
+import com.example.mergebackend.infra.feign.oauth.dto.response.RegenerateSecretResponse
+import com.example.mergebackend.infra.feign.oauth.dto.response.RegisterClientResponse
+import com.example.mergebackend.infra.feign.oauth.dto.response.UpdateClientResponse
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -28,8 +32,8 @@ class ProjectServiceImpl(
     private val userFacade: UserFacade,
     private val fileService: FileService,
     private val userRepository: UserRepository,
-    private val oAuthClient: OAuthClient,
-    ) : ProjectService {
+    private val oAuthClient: OAuthClient
+) : ProjectService {
 
     @Transactional
     override fun register(
@@ -71,14 +75,6 @@ class ProjectServiceImpl(
         )
 
         projectRepository.save(project)
-
-        oAuthClient.registerClient(
-
-            request = RegisterClientRequest(
-                clientId = req.projectNameEn,
-                redirectUris = req.redirectUris ?: emptyList()
-            )
-        )
 
 
         return project.toResponse(user)
@@ -177,5 +173,25 @@ class ProjectServiceImpl(
             ?: throw ProjectNotFoundException
 
         project.isHidden = false
+    }
+
+    @Transactional
+    override fun registerClient(req: RegisterClientRequest): RegisterClientResponse {
+        return oAuthClient.registerClient(
+            request = RegisterClientRequest(
+                clientId = req.clientId,
+                redirectUris = req.redirectUris ?: emptyList()
+            )
+        )
+    }
+
+    @Transactional
+    override fun updateClient(clientId: String, req: UpdateClientRequest): UpdateClientResponse {
+        return oAuthClient.updateClient(clientId, req)
+    }
+
+    @Transactional
+    override fun regenerateSecret(clientId: String): RegenerateSecretResponse {
+        return oAuthClient.regenerateSecret(clientId)
     }
 }
